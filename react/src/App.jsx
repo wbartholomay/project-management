@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Link, Navigate, useLocation } f
 
 import Start from './components/Start'
 import Login from './components/Login'
+import SelectProject from './components/SelectProject'
 
 
 function App() {
@@ -31,13 +32,13 @@ function App() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link" to="/">
-                  Home
+                <Link className="nav-link" to="/SelectProject">
+                  Select a project
                 </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/about">
-                  About
+                  About 
                 </Link>
               </li>
               <li className="nav-item dropdown">
@@ -87,6 +88,7 @@ function App() {
             <Routes>
                 <Route exact path="/" element={<Start></Start>}></Route>
                 <Route path="/Login" element={<Login />} />
+                <Route path="/SelectProject" element={<SelectProject></SelectProject>}></Route>
             </Routes>
             </div>
           </div>
