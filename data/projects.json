@@ -1,9 +1,29 @@
-{
-        "name" : "make a website",
+[{
+        "name" : "make a shopping website",
         "teamMembers" : ["jsmith", "ljones", "wjames"],
         "teamSize" : 3,
         "budget" : 10000,
         "workload" : 8,
         "daysToComplete" : 15,
         "taskIds" : []
-}
+},
+{
+        "name": "build a mobile app",
+        "teamMembers": ["mjohnson", "tkim", "bchen"],
+        "teamSize": 3,
+        "budget": 15000,
+        "workload": 6,
+        "daysToComplete": 20,
+        "taskIds": []
+    },
+    {
+        "name": "design a logo",
+        "teamMembers": ["asmith", "klee", "ppatel"],
+        "teamSize": 3,
+        "budget": 5000,
+        "workload": 4,
+        "daysToComplete": 10,
+        "taskIds": []
+    }
+    
+]
