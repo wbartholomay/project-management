@@ -5,36 +5,49 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
 .card {
   padding: 2em;
+}
+
+#login-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
+}
+
+#register-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) 
+}
+
+#username {
+  width: 15em;
+}
+#username-label {
+  width: 12em;
+}
+#password-label {
+  width: 12em;
+}
+#password {
+  width: 15em;
+}
+#confirm-password-label{
+  width: 12em;
+}
+#confirm-password{
+  width: 15em;
+}
+
+.task-card{
+  transition: transform 0.1s ease-in-out;
+}
+
+.task-card:hover {
+  transform: scale(1.02);
 }
 
 .read-the-docs {
@@ -56,9 +69,12 @@
 
 .task-buttons {
   position: absolute;
-  top: 5%;
-  right: 5%;
+  top: 1%;
+  right: 1%;
 }
 .edit-button {
-
+  margin: .5em;
+}
+.delete-button {
+  margin: .5em;
 }
