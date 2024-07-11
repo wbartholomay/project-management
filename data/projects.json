@@ -1,0 +1,8 @@
+{
+        "teamMembers" : ["jsmith", "ljones", "wjames"],
+        "teamSize" : 3,
+        "budget" : 10000,
+        "workload" : 8,
+        "daysToComplete" : 15,
+        "taskIds" : []
+}
