@@ -10,8 +10,9 @@ def generate_task(description: str, complete: bool, user_assigned: str, due_date
         "estimatedDaysToComplete" : days_to_complete
     }
 
-def generate_project(team_members: list[str], team_size: int, budget: int, workload: int, days_to_complete: int, task_ids: list[str] = []):
+def generate_project(name, team_members: list[str], team_size: int, budget: int, workload: int, days_to_complete: int, task_ids: list[str] = []):
     return{
+        "name" : name,
         "teamMembers" : team_members,
         "teamSize" : team_size,
         "budget" : budget,
@@ -23,12 +24,13 @@ def generate_project(team_members: list[str], team_size: int, budget: int, workl
 def generate_one_thousand_projects():
     projects = []
     for _ in range(1000):
+        name = ""
         team_members = []
         team_size = random.randint(1,10)
         budget = random.randint(1000, 15000)
         workload = random.choice([1, 2, 3, 5, 8, 13])
         days_to_complete = random.randint(3, 100)
-        projects.append(generate_project(team_members, team_size, budget, workload, days_to_complete))
+        projects.append(generate_project(name, team_members, team_size, budget, workload, days_to_complete))
 
     return projects
 
