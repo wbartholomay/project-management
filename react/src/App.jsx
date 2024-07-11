@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import { BrowserRouter as Router, Route, Routes, Link, Navigate, useLocation } from "react-router-dom"
 
@@ -17,7 +15,7 @@ function App() {
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">
-            TSE
+            Project Management
           </a>
           <button
             className="navbar-toggler"
@@ -86,16 +84,10 @@ function App() {
         <div className="container-fluid">
           <div className="row">
             <div className="card-container">
-            <AuthProvider>
             <Routes>
-                <Route exact path="/" element={<Start></Start>}
-                <Route path="/about" element={<About />} />
-                <Route path="/add" element={
-                } />
-                <Route path="/Login" element={<LoginForm />} />
+                <Route exact path="/" element={<Start></Start>}></Route>
+                <Route path="/Login" element={<Login />} />
             </Routes>
-            </AuthProvider>
-              <Footer environment={"development"}></Footer>
             </div>
           </div>
         </div>
