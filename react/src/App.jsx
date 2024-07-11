@@ -7,6 +7,7 @@ import Login from './components/Login'
 import SelectProject from './components/SelectProject'
 import Project from './components/Project'
 import Task from './components/Task'
+import Register from './components/Register'
 
 
 function App() {
@@ -56,7 +57,7 @@ function App() {
                 <ul className="dropdown-menu">
                   <li>
                     <Link className="dropdown-item" to="/add">
-                      Add Sock
+                      Add Project
                     </Link>
                   </li>
                   <li>
@@ -93,6 +94,7 @@ function App() {
                 <Route path="/SelectProject" element={<SelectProject></SelectProject>}></Route>
                 <Route path="/Project" element={<Project></Project>}></Route>
                 <Route path="/Task" element={<Task></Task>}></Route>
+                <Route path="/Register" element={<Register></Register>}></Route>
             </Routes>
             </div>
           </div>
