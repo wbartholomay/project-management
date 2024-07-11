@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Route, Routes, Link, Navigate, useLocation } f
 import Start from './components/Start'
 import Login from './components/Login'
 import SelectProject from './components/SelectProject'
+import Project from './components/Project'
+import Task from './components/Task'
 
 
 function App() {
@@ -89,6 +91,8 @@ function App() {
                 <Route exact path="/" element={<Start></Start>}></Route>
                 <Route path="/Login" element={<Login />} />
                 <Route path="/SelectProject" element={<SelectProject></SelectProject>}></Route>
+                <Route path="/Project" element={<Project></Project>}></Route>
+                <Route path="/Task" element={<Task></Task>}></Route>
             </Routes>
             </div>
           </div>
