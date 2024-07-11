@@ -1,0 +1,27 @@
+[
+    {
+        "name" : "Database Creation",
+        "description" : "Create a mongo database.",
+        "complete" : false,
+        "userAssigned" : "jsmith",
+        "dueDate" : "2024-07-19T00:00:00Z",
+        "estimatedDaysToComplete" : 5
+    },
+    {
+        "name" : "Frontend Creation",
+        "description" : "Create React frontend.",
+        "complete" : false,
+        "userAssigned" : "wjames",
+        "dueDate" : "2024-07-17T00:00:00Z",
+        "estimatedDaysToComplete" : 3
+    },
+    {
+        "name" : "Model Creation",
+        "description" : "Create a logistic regression model.",
+        "complete" : false,
+        "userAssigned" : "ljones",
+        "dueDate" : "2024-07-19T00:00:00Z",
+        "estimatedDaysToComplete" : 5
+    }
+
+]
