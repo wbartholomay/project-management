@@ -40,3 +40,25 @@
 .read-the-docs {
   color: #888;
 }
+
+.project-name {
+  font-weight: 700;
+  padding-right: 2em;
+}
+
+.project-attributes {
+  padding-right: 2em;
+}
+
+.task-name {
+  font-weight: 700;
+}
+
+.task-buttons {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+}
+.edit-button {
+
+}
