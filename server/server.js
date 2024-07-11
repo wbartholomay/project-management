@@ -26,3 +26,5 @@ app.get("/projects", async (req, res) => {
         res.status(500).send("Error occured while fetching projects.")
   }
 });
+
+
