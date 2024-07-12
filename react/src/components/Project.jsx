@@ -1,12 +1,12 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import Task from './Task'
+import React from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import Task from "./Task";
 const Project = () => {
-  const [taskList, setTaskList] = useState([])
+  const [taskList, setTaskList] = useState([]);
   const location = useLocation();
   const project = location.state || {};
-  console.log(project)
+  console.log(project);
   useEffect(() => {
     fetch(import.meta.env.VITE_TASKS_URL + project._id)
       .then((response) => response.json())
@@ -17,7 +17,7 @@ const Project = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, [location]);
+  }, [location, taskList]);
   if (!project) {
     return <div>No project data available.</div>;
   }
@@ -37,7 +37,16 @@ const Project = () => {
             {taskList
               .filter((task) => !task.isComplete)
               .map((task) => (
-                <Task key={task._id} task={task} />
+                <div className="card task-card">
+                  <div className="task-buttons">
+                    <button className="edit-button">Edit</button>
+                    <button onClick={() => handleDelete(task._id)} className="delete-button">Delete</button>
+                  </div>
+                  <div className="task-switch">
+                    <button className="switch-button">Switch</button>
+                  </div>
+                  <Task key={task._id} task={task} />
+                </div>
               ))}
           </div>
           <div className="col-md-6 bg-light border">
@@ -45,7 +54,16 @@ const Project = () => {
             {taskList
               .filter((task) => task.isComplete)
               .map((task) => (
-                <Task key={task._id} task={task} />
+                <div className="card task-card">
+                  <div className="task-buttons">
+                    <button className="edit-button">Edit</button>
+                    <button className="delete-button">Delete</button>
+                  </div>
+                  <div className="task-switch">
+                    <button className="switch-button">Switch</button>
+                  </div>
+                  <Task key={task._id} task={task} />
+                </div>
               ))}
           </div>
         </div>

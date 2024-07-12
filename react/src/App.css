@@ -75,6 +75,14 @@
   top: 1%;
   right: 1%;
 }
+.task-switch {
+  position: absolute;
+  top: 1%;
+  left: 1%;
+}
+.switch-button {
+  margin: .5em;
+}
 .edit-button {
   margin: .5em;
 }
