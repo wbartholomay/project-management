@@ -105,7 +105,11 @@ function App() {
                     <Route path="/Login" element={<Login />} />
                     <Route
                       path="/SelectProject"
-                      element={<RequireAuth><SelectProject></SelectProject></RequireAuth>}
+                      element={
+                        <RequireAuth>
+                          <SelectProject></SelectProject>
+                        </RequireAuth>
+                      }
                     ></Route>
                     <Route
                       path="/Project"
