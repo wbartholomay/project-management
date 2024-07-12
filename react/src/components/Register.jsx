@@ -12,10 +12,10 @@ export default function Register() {
             <br></br>
             <br></br>
             <label id='password-label' htmlFor='password'>Password:</label>
-            <input id="password" type="text" />
+            <input id="password" type="password" />
             <br /><br />
             <label id='confirm-password-label' htmlFor='confirm-password'>Confirm Password:</label>
-            <input id="confirm-password" type="text" />
+            <input id="confirm-password" type="password" />
             <br /><br />
             <Link to="/login">Already have an account? Login here</Link>
         </form>
