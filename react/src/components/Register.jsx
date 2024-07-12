@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Register() {
@@ -10,9 +10,11 @@ export default function Register() {
   const handleRegister = async (event) => {
     event.preventDefault();
     if (password == confirmedPassword) {
-      alert("Success");
+      const response = await fetch('')
     } else {
       alert("Passwords do not match.");
+      setPassword("");
+      setConfirmedPassword("");
     }
     console.log(username, password);
   };
@@ -21,7 +23,7 @@ export default function Register() {
     <>
       <div id="register-card" className="card">
         <h3>Register</h3>
-        <form>
+        <form onSubmit={handleRegister}>
           <label id="username-label" htmlFor="username">
             Username:
           </label>
@@ -56,6 +58,9 @@ export default function Register() {
             value={confirmedPassword}
             onChange={(e) => setConfirmedPassword(e.target.value)}
           />
+          <br />
+          <br />
+          <button type="submit" className="btn btn-primary">Register</button>
           <br />
           <br />
           <Link to="/login">Already have an account? Login here</Link>
