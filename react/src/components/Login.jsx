@@ -14,7 +14,7 @@ export default function Login() {
     event.preventDefault();
     await login(username, password);
     console.log(username, password);
-    navigate("/addSock");
+    navigate("/");
   };
   return (
     <>
