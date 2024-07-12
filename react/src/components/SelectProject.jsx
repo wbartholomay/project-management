@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import dotenv from 'dotenv'
+import { useAuth } from "../hooks/AuthContext";
 export default function SelectProject() {
-  const user = "jsmith";
+  const {user} = useAuth();
+  if(!user){
+    return(
+      <div>Error fetching login credentials, please login again</div>
+    )
+  }
+  const username = user.username
   const [projectList, setProjectList] = useState([]);
 
   useEffect(() => {
-    fetch(import.meta.env.VITE_PROJECTS_URL + user)
+    fetch(import.meta.env.VITE_PROJECTS_URL + username)
       .then((response) => response.json())
       .then((data) => {
         setProjectList(data);

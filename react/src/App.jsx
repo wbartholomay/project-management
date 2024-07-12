@@ -20,7 +20,7 @@ import RequireAuth from "./components/RequireAuth";
 
 function App() {
   const [count, setCount] = useState(0);
-
+  //const {user} = userAuth();
   return (
     <>
       <Router>
@@ -93,6 +93,7 @@ function App() {
                 </li>
               </ul>
             </div>
+            <div></div>
           </div>
         </nav>
         <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-md-4">
