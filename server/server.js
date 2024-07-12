@@ -81,6 +81,26 @@ app.get("/projects", async (req, res) => {
   await getItem("projects", req, res);
 });
 
+app.get("/projects/:user", async (req, res) => {
+  //returns all tasks assigned to a project given a project ID
+  const collectionName = "projects";
+
+  try {
+    const { user } = req.params;
+
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+    const tasks = await collection
+      .find({ teamMembers: { $in: [user] } })
+      .toArray();
+    res.json(tasks);
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(500).send("Error occured while fetching projects.");
+  }
+})
+
 app.get("/tasks", async (req, res) => {
   await getItem("tasks", req, res);
 });
