@@ -165,6 +165,29 @@ app.put("/users/:id", async (req, res) => {
   await putItem("users", req, res);
 });
 
+app.post('/socks/login', async (req, res) => {
+  const { username, password } = req.body;
+  const collectionName = "users";
+  const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+
+  try {
+    const result = await collection.find({username : username, password : password}).toArray();
+
+      // const result = await pool.query('SELECT uuid FROM users WHERE username = $1 AND password = $2', [username, password]);
+      if (result.length == 0) {
+        //TODO: authenticate user
+          res.status(200).json({uid : result._id});
+      } else {
+          res.status(401).json({ message: 'Authentication failed' });
+      }
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
