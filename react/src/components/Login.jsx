@@ -6,7 +6,6 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const {login} = useAuth()
-  console.log(login);
   // const { login } = useAuth();
   const navigate = useNavigate();
 

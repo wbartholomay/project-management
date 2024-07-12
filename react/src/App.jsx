@@ -16,6 +16,7 @@ import Project from "./components/Project";
 import Task from "./components/Task";
 import Register from "./components/Register";
 import { AuthProvider } from "./hooks/AuthContext";
+import RequireAuth from "./components/RequireAuth";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -108,9 +109,20 @@ function App() {
                     ></Route>
                     <Route
                       path="/Project"
-                      element={<Project></Project>}
+                      element={
+                        <RequireAuth>
+                          <Project></Project>
+                        </RequireAuth>
+                      }
                     ></Route>
-                    <Route path="/Task" element={<Task></Task>}></Route>
+                    <Route
+                      path="/Task"
+                      element={
+                        <RequireAuth>
+                          <Task></Task>
+                        </RequireAuth>
+                      }
+                    ></Route>
                     <Route
                       path="/Register"
                       element={<Register></Register>}
