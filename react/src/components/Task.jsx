@@ -7,7 +7,8 @@ const task = {
     isComplete: false,
     personAssigned: "zflor",
     dueDate: "11/02/24",
-    estimatedDuration: "10 days"
+    estimatedDuration: "10 days",
+    projectID: "6691336ba77b80ee64e11a28"
 }
   return (
     <div className="card task-card">
