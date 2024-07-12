@@ -99,7 +99,7 @@ app.get("/projects/:user", async (req, res) => {
     console.error("Error:", err);
     res.status(500).send("Error occured while fetching projects.");
   }
-})
+});
 
 app.get("/tasks", async (req, res) => {
   await getItem("tasks", req, res);
@@ -115,9 +115,7 @@ app.get("/tasks/:id", async (req, res) => {
     const client = await MongoClient.connect(url);
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
-    const tasks = await collection
-      .find({ projectId: id })
-      .toArray();
+    const tasks = await collection.find({ projectId: id }).toArray();
     res.json(tasks);
   } catch (err) {
     console.error("Error:", err);
@@ -141,7 +139,28 @@ app.post("/register", async (req, res) => {
   await postItem("users", req, res);
 });
 
-app.post()
+app.post("/login", async (req, res) => {
+  const collectionName = "users";
+  try {
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+    let {username, password} = req.body;
+    console.log(`Username: ${username}, Password: ${password}`)
+
+    const result = await collection.find({'username' : username}, {'password': password}).toArray();
+    if(result.length > 0){
+      res.status(200).json({uid : result[0]._id});
+    }
+    else{
+      res.status(401).json({ message: 'Authentication failed' });
+      console.log(result);
+    }
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(500).send("Error occured while authenticating login.");
+  }
+});
 
 app.delete("/projects/:id", async (req, res) => {
   await deleteItem("projects", req, res);
@@ -165,29 +184,6 @@ app.put("/tasks/:id", async (req, res) => {
 
 app.put("/users/:id", async (req, res) => {
   await putItem("users", req, res);
-});
-
-app.post('/socks/login', async (req, res) => {
-  const { username, password } = req.body;
-  const collectionName = "users";
-  const client = await MongoClient.connect(url);
-    const db = client.db(dbName);
-    const collection = db.collection(collectionName);
-
-  try {
-    const result = await collection.find({username : username, password : password}).toArray();
-
-      // const result = await pool.query('SELECT uuid FROM users WHERE username = $1 AND password = $2', [username, password]);
-      if (result.length == 0) {
-        //TODO: authenticate user
-          res.status(200).json({uid : result._id});
-      } else {
-          res.status(401).json({ message: 'Authentication failed' });
-      }
-  } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: 'Internal server error' });
-  }
 });
 
 app.listen(PORT, () => {
