@@ -14,6 +14,7 @@ export default function Login() {
     await login(username, password);
     if(user){
       console.log(username, password);
+      alert("Success.");
       navigate("/");
     }
     else{
