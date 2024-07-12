@@ -10,12 +10,10 @@ const dbName = "project_management";
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 const PORT = 3000;
 
-app.get("/projects", async (req, res) => {
-  const collectionName = "projects";
-  console.log("fetching projects");
-
+async function getItem(collectionName, req, res){
   try {
     const client = await MongoClient.connect(url);
     const db = client.db(dbName);
@@ -26,43 +24,60 @@ app.get("/projects", async (req, res) => {
         console.error("Error:", err);
         res.status(500).send("Error occured while fetching projects.")
   }
+}
+
+async function postItem(collectionName, req, res){
+  try {      
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+    let document = req.body;
+    console.log(`Inserting document: ${document}`)
+    const status = await collection.insertOne(document);
+    res.status(200).send(status);
+  } catch (err) {
+    console.error("Error:", err);
+    res
+      .status(500)
+      .send("Error while posting project.");
+  }
+}
+
+async function deleteItem(collectionName, req, res){
+    try {
+      // TODO: Add code that delete a sock when its delete button is clicked.
+      const client = await MongoClient.connect(url);
+      const db = client.db(dbName);
+      const collection = db.collection(collectionName);
+      const { id } = req.params;
+      const status = await collection.deleteOne({ "_id": new ObjectId(id) });
+      res.send(status);
+    } catch (err) {
+      console.error("Error:", err);
+      res
+        .status(500)
+        .send("error deleting project");
+    }
+  }
+
+app.get("/projects", async (req, res) => {
+  await getItem("projects", req, res);
 });
 
+app.get("/users", async (req, res) => {
+  await getItem("users", req, res);
+});
 
 app.post("/projects", async (req, res) => {
-    const collectionName = "projects";
-    try {
-        // TODO: Add code that adds a sock when a new sock is posted using the
-        // Add Sock form.        
-        const client = await MongoClient.connect(url);
-        const db = client.db(dbName);
-        const collection = db.collection(collectionName);
-        const status = await collection.insertOne(req.body);
-        res.status(200).send(status);
-      } catch (err) {
-        console.error("Error:", err);
-        res
-          .status(500)
-          .send("Error while posting project.");
-      }
+    await postItem("projects", req, res);
 });
 
 app.post("/tasks", async (req, res) => {
-    const collectionName = "tasks";
-    try {
-        // TODO: Add code that adds a sock when a new sock is posted using the
-        // Add Sock form.        
-        const client = await MongoClient.connect(url);
-        const db = client.db(dbName);
-        const collection = db.collection(collectionName);
-        const status = await collection.insertOne(req.body);
-        res.status(200).send(status);
-      } catch (err) {
-        console.error("Error:", err);
-        res
-          .status(500)
-          .send("Error while posting task.");
-      }
+    await postItem("tasks", req, res);
+});
+
+app.post("/users", async (req, res) => {
+  await postItem("users", req, res);
 });
 
 app.delete("/projects/:id", async (req, res) => {
@@ -82,6 +97,99 @@ app.delete("/projects/:id", async (req, res) => {
         .send("error deleting project");
     }
   });
+
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+
+
+  app.delete("/tasks/:id", async (req, res) => {
+    const collectionName = "tasks";
+    try {
+      // TODO: Add code that delete a sock when its delete button is clicked.
+      const client = await MongoClient.connect(url);
+      const db = client.db(dbName);
+      const collection = db.collection(collectionName);
+      const { id } = req.params;
+      const status = await collection.deleteOne({ "_id": new ObjectId(id) });
+      res.send(status);
+    } catch (err) {
+      console.error("Error:", err);
+      res
+        .status(500)
+        .send("error deleting project");
+    }
+  });
+
+  app.delete("/users/:id", async (req, res) => {
+    const collectionName = "users";
+    try {
+      // TODO: Add code that delete a sock when its delete button is clicked.
+      const client = await MongoClient.connect(url);
+      const db = client.db(dbName);
+      const collection = db.collection(collectionName);
+      const { id } = req.params;
+      const status = await collection.deleteOne({ "_id": new ObjectId(id) });
+      res.send(status);
+    } catch (err) {
+      console.error("Error:", err);
+      res
+        .status(500)
+        .send("error deleting project");
+    }
+  });
+
+
+  app.put("/projects/:id", async (req, res) => {
+    collectionName = "projects"
+    try {
+      const { id } = req.params;
+      const updatedProject = req.body;
+
+      const client = await MongoClient.connect(url);
+      const db = client.db(dbName);
+      const collection = db.collection(collectionName);
+
+      const result = await collection.updateOne(
+        {_id: new ObjectId(id)},
+        {$set : updatedProject}
+      );
+
+      res.send("Document updated successfully.")
+      
+    } catch (err) {
+      console.error("Error:", err);
+      res
+        .status(500)
+        .send("Error updating project");
+    }
+  });
+
+  app.put("/tasks/:id", async (req, res) => {
+    collectionName = "tasks"
+    try {
+      const { id } = req.params;
+      const updatedProject = req.body;
+
+      const client = await MongoClient.connect(url);
+      const db = client.db(dbName);
+      const collection = db.collection(collectionName);
+
+      const result = await collection.updateOne(
+        {_id: new ObjectId(id)},
+        {$set : updatedProject}
+      );
+
+      res.send("Document updated successfully.")
+      
+    } catch (err) {
+      console.error("Error:", err);
+      res
+        .status(500)
+        .send("Error updating task");
+    }
+  });
+
 
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
