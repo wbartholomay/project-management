@@ -19,6 +19,8 @@ export default function Register() {
         },
         body: JSON.stringify({ username, password }),
       });
+      alert("Successfully registered, please log in.");
+      navigate("/Login");
 
       console.log(response);
     } else {
