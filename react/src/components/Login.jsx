@@ -1,26 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../hooks/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const {user, login} = useAuth()
+  const [userObj, setUserObj] = useState();
+  const { login } = useAuth();
   // const { login } = useAuth();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const { user } = useAuth();
+    console.log("UseEffect()");
+    setUserObj(user);
+  }, []);
+
   const handleLogin = async (event) => {
-    event.preventDefault();
-    await login(username, password);
-    if(user){
+    try {
+      event.preventDefault();
       console.log(username, password);
-      alert("Success.");
-      navigate("/");
-    }
-    else{
-      setUsername("");
-      setPassword("");
-      alert("Username or password are incorrect.")
+      await login(username, password);
+      if (userObj) {
+        alert("Success.");
+        navigate("/");
+      } else {
+        setUsername("");
+        setPassword("");
+        alert("Username or password are incorrect.");
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
   return (
@@ -52,7 +62,9 @@ export default function Login() {
           />
           <br />
           <br />
-          <button type="submit" className="btn btn-primary">Login</button>
+          <button type="submit" className="btn btn-primary">
+            Login
+          </button>
           <br />
           <br />
           <Link to="/register">Register new account here</Link>

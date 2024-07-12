@@ -149,6 +149,7 @@ app.post("/login", async (req, res) => {
     console.log(`Username: ${username}, Password: ${password}`)
 
     const result = await collection.find({'username' : username}, {'password': password}).toArray();
+    console.log(result);
     if(result.length > 0){
       res.status(200).json({uid : result[0]._id});
     }
