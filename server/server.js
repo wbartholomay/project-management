@@ -1,8 +1,10 @@
 import express from "express";
 import { promises as fs } from "fs";
 import { MongoClient, ObjectId } from "mongodb";
+import {PythonShell} from "python-shell";
 import dotenv from "dotenv";
 import cors from "cors";
+
 
 dotenv.config();
 const url = process.env.MONGO_DB_URL;
@@ -138,6 +140,10 @@ app.post("/tasks", async (req, res) => {
 app.post("/register", async (req, res) => {
   await postItem("users", req, res);
 });
+
+app.post("/predictTime", async (req, res) => {
+  
+})
 
 app.post("/login", async (req, res) => {
   const collectionName = "users";

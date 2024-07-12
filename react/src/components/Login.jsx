@@ -19,7 +19,7 @@ export default function Login() {
         navigate("/");
       } else {
         setUsername("");
-        setPassword("");
+        setPassword(""); 
         alert("Username or password are incorrect.");
       }
     } catch (err) {
