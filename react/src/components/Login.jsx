@@ -5,23 +5,16 @@ import { useNavigate, Link } from "react-router-dom";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [userObj, setUserObj] = useState();
   const { login } = useAuth();
   // const { login } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const { user } = useAuth();
-    console.log("UseEffect()");
-    setUserObj(user);
-  }, []);
 
   const handleLogin = async (event) => {
     try {
       event.preventDefault();
       console.log(username, password);
-      await login(username, password);
-      if (userObj) {
+      const loginSucceeded = await login(username, password);
+      if (loginSucceeded) {
         alert("Success.");
         navigate("/");
       } else {

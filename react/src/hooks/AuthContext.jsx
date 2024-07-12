@@ -23,8 +23,10 @@ export const AuthProvider = ({ children }) => {
                     username,
                     uid: data.uid // Storing the uid returned from the server
                 });
+                return true;
             } else {
-                throw new Error(data.message || 'Login failed');
+                return false;
+                //throw new Error(data.message || 'Login failed');
             }
         } catch (error) {
             console.error(error);
