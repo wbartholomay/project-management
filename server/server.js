@@ -137,9 +137,11 @@ app.post("/tasks", async (req, res) => {
   await postItem("tasks", req, res);
 });
 
-app.post("/users", async (req, res) => {
+app.post("/register", async (req, res) => {
   await postItem("users", req, res);
 });
+
+app.post()
 
 app.delete("/projects/:id", async (req, res) => {
   await deleteItem("projects", req, res);

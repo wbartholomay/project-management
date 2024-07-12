@@ -9,8 +9,18 @@ export default function Register() {
 
   const handleRegister = async (event) => {
     event.preventDefault();
+    const apiUrl = import.meta.env.API_URL;
+    console.log(apiUrl);
     if (password == confirmedPassword) {
-      const response = await fetch('')
+      const response = await fetch(`http://127.0.0.1:3000/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      console.log(response);
     } else {
       alert("Passwords do not match.");
       setPassword("");
@@ -60,7 +70,9 @@ export default function Register() {
           />
           <br />
           <br />
-          <button type="submit" className="btn btn-primary">Register</button>
+          <button type="submit" className="btn btn-primary">
+            Register
+          </button>
           <br />
           <br />
           <Link to="/login">Already have an account? Login here</Link>
