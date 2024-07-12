@@ -17,6 +17,7 @@ import Task from "./components/Task";
 import Register from "./components/Register";
 import { AuthProvider } from "./hooks/AuthContext";
 import RequireAuth from "./components/RequireAuth";
+import AddProject from "./components/AddProject";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -67,7 +68,7 @@ function App() {
                   </a>
                   <ul className="dropdown-menu">
                     <li>
-                      <Link className="dropdown-item" to="/add">
+                      <Link className="dropdown-item" to="/AddProject">
                         Add Project
                       </Link>
                     </li>
@@ -118,6 +119,14 @@ function App() {
                         <RequireAuth>
                           <Project></Project>
                         </RequireAuth>
+                      }
+                    ></Route>
+                    <Route
+                      path="/AddProject"
+                      element={
+                        // <RequireAuth>
+                          <AddProject></AddProject>
+                        // </RequireAuth>
                       }
                     ></Route>
                     <Route
