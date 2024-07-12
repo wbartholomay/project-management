@@ -5,15 +5,22 @@ import { useNavigate, Link } from "react-router-dom";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const {login} = useAuth()
+  const {user, login} = useAuth()
   // const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
     await login(username, password);
-    console.log(username, password);
-    navigate("/");
+    if(user){
+      console.log(username, password);
+      navigate("/");
+    }
+    else{
+      setUsername("");
+      setPassword("");
+      alert("Username or password are incorrect.")
+    }
   };
   return (
     <>
