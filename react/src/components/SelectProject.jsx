@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import { Link } from 'react-router-dom'
 export default function SelectProject() {
     const [projectList, setProjectList] = useState([]);
     
@@ -22,21 +22,20 @@ export default function SelectProject() {
     }, []); // Empty dependency array to run only once on mount
 
     return (
-        <>
-            <div>Your Projects</div>
-            
-            {
-                projectList.map((proj) => (
-                    <div key={proj.id} className='card-container d-flex flex-row justify-content-start'>
-                        <div>Team Members: {proj.teamMembers.join(', ')}</div>
-                        <div>Team Size: {proj.teamSize}</div>
-                        <div>Budget: {proj.budget}</div>
-                        <div>Workload: {proj.workload}</div>
-                        <div>Days to complete: {proj.daysToComplete}</div>
-                    </div>
-                ))
-            }
-        </>
-    )
+      <>
+        <div>Your Projects</div>
+
+        {projectList.map((proj) => (
+          <Link key={proj.id} to="/Project">
+            <div className="card card-container d-flex flex-row justify-content-start">
+              <div className='project-name'>{proj.name}</div>
+              <div className='project-attributes'>Team Size: {proj.teamSize}</div>
+              <div className='project-attributes'>Workload: {proj.workload}</div>
+              <div className='project-attributes'>Estimated Days to Completion:{proj.daysToComplete}</div>
+            </div>
+          </Link>
+        ))}
+      </>
+    );
 }
  
