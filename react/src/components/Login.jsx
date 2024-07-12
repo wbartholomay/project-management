@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../hooks/AuthContext";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -8,6 +8,8 @@ export default function Login() {
   const { login } = useAuth();
   // const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const {from} = location.state || { from: { pathname: "/" } };
 
   const handleLogin = async (event) => {
     try {
@@ -16,7 +18,8 @@ export default function Login() {
       const loginSucceeded = await login(username, password);
       if (loginSucceeded) {
         alert("Success.");
-        navigate("/");
+        
+        navigate(from.pathname);
       } else {
         setUsername("");
         setPassword(""); 
