@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import dotenv from 'dotenv'
+import dotenv from "dotenv";
 import { useAuth } from "../hooks/AuthContext";
 export default function SelectProject() {
-  const {user} = useAuth();
-  if(!user){
-    return(
-      <div>Error fetching login credentials, please login again</div>
-    )
+  const { user } = useAuth();
+  if (!user) {
+    return <div>Error fetching login credentials, please login again</div>;
   }
-  const username = user.username
+  const username = user.username;
   const [projectList, setProjectList] = useState([]);
 
   useEffect(() => {
@@ -30,7 +28,7 @@ export default function SelectProject() {
         <div>No projects found. Please create a new project!</div>
       ) : (
         projectList.map((proj) => (
-          <Link key={proj._id} to='/Project' state={proj}>
+          <Link key={proj._id} to="/Project" state={proj}>
             <div className="card card-container d-flex flex-row justify-content-start">
               <div className="project-name">{proj.name}</div>
               <div className="project-attributes">

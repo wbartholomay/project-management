@@ -7,7 +7,7 @@ export default function AddProject() {
   const [projectData, setProjectData] = useState({
     name: "",
     manager: user.username,
-    teamMembers: [],
+    teamMembers: [user.username],
     teamSize: 0,
     budget: 0,
     workload: 1,
@@ -37,11 +37,12 @@ export default function AddProject() {
       });
 
       const data = await response.json();
-      console.log(data)
-      alert("Project Successfully Added.")
+      console.log(data);
+      alert("Project Successfully Added.");
       setProjectData({
         name: "",
-        teamMembers: [],
+        manager: user.username,
+        teamMembers: [user.username],
         teamSize: 0,
         budget: 0,
         workload: 1,
