@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function TaskButtons({ task, taskList, handleEditTask, handleDeleteTask, handleSwitchTask }){
+export default function TaskButtons({ task, taskList, setTaskList, handleEditTask, handleDeleteTask, handleSwitchTask }){
     return (
       <>
         <div className="task-buttons">
@@ -11,7 +11,7 @@ export default function TaskButtons({ task, taskList, handleEditTask, handleDele
             Edit
           </button>
           <button
-            onClick={() => handleDeleteTask(task._id, taskList)}
+            onClick={() => handleDeleteTask(task._id, taskList, setTaskList)}
             className="delete-button"
           >
             Delete
