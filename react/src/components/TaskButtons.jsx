@@ -1,8 +1,9 @@
 import React from "react";
 
-export default function TaskButtons({ task, taskList, setTaskList, handleEditTask, handleDeleteTask, handleSwitchTask, handleEditTaskPopup}){
+export default function TaskButtons({ task, taskList, setTaskList, handleEditTask, handleDeleteTask, handleSwitchTask, handleEditTaskPopup, isManager}){
     return (
       <>
+      { isManager &&
         <div className="task-buttons">
           <button
             onClick={() => handleEditTaskPopup(task._id)}
@@ -16,7 +17,7 @@ export default function TaskButtons({ task, taskList, setTaskList, handleEditTas
           >
             Delete
           </button>
-        </div>
+        </div>}
         <div className="task-switch">
           <button
             onClick={() =>
