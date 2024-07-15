@@ -208,6 +208,29 @@ app.put("/projects/:id", async (req, res) => {
   await putItem("projects", req, res);
 });
 
+app.put("projects/:id/teamMembers", async (req, res) => {
+  const { id } = req.params;
+  const { member } = req.body;
+
+  try {
+    const project = await Project.findById(projectId);
+
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+
+    if (!project.teamMembers.includes(newMember)) {
+      project.teamMembers.push(newMember);
+      await project.save();
+      return res.status(200).json({ message: "team member added." });
+    } else {
+      return res.status(400).json({ message: "Team member already exists" });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Server error", error });
+  }
+});
+
 app.put("/tasks/:id", async (req, res) => {
   await putItem("tasks", req, res);
 });
