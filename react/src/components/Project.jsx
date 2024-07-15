@@ -14,7 +14,23 @@ const Project = () => {
   const location = useLocation();
   const project = location.state || {};
 
-  const addTeamMember = () => {
+  const generateTimeToComplete = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/predictTime", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(project),
+      });
+    
+      const data = await response.json();
+      const prediction = data.daysToComplete;
+      console.log(prediction);
+    }
+      catch(err){
+        console.log(err);
+      }
   }
 
   console.log(project);
@@ -51,6 +67,9 @@ const Project = () => {
             <h5>Project Details:</h5>
               <p>Workload: {project.workload}</p>
               <p>Estimated Days to Completion: {project.daysToComplete}</p>
+              <button type="submit" className="btn btn-primary" onClick={generateTimeToComplete}>
+            Generate
+        </button>
             </div>
           </div>
         </div>
