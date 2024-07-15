@@ -5,7 +5,7 @@ import {
   Route,
   Routes,
   Link,
-  Navigate,
+  useNavigate,
   useLocation,
 } from "react-router-dom";
 
@@ -21,6 +21,12 @@ import AddProject from "./components/AddProject";
 
 function App() {
   const [count, setCount] = useState(0);
+
+  function navigateToStart(event){
+    event.preventDefault();
+    window.location.href = '/';
+  }
+
   //const {user} = userAuth();
   return (
     <>
@@ -28,7 +34,7 @@ function App() {
         <AuthProvider>
           <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
-              <a className="navbar-brand" href="#">
+              <a className="navbar-brand" href="#" onClick={(e) => {navigateToStart(e)}}>
                 Project Management
               </a>
               <button
@@ -103,7 +109,15 @@ function App() {
               <div className="row">
                 <div className="card-container">
                   <Routes>
-                    <Route exact path="/" element={<RequireAuth><Start></Start></RequireAuth>}></Route>
+                    <Route
+                      exact
+                      path="/"
+                      element={
+                        <RequireAuth>
+                          <Start></Start>
+                        </RequireAuth>
+                      }
+                    ></Route>
                     <Route path="/Login" element={<Login />} />
                     <Route
                       path="/SelectProject"

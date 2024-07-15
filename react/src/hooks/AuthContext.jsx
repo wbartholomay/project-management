@@ -1,11 +1,13 @@
 import React, { createContext, useContext, useState } from 'react';
+import Cookies from 'js-cookie';
 
 // Creating an authentication context
 const AuthContext = createContext(null);
 
 // Auth provider component that wraps your app components
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    //const [user, setUser] = useState(null);
+    let user = {};
 
     const login = async (username, password) => {
         try {
@@ -19,10 +21,15 @@ export const AuthProvider = ({ children }) => {
             const data = await response.json();
             if (data.uid) {
                 console.log("setting user")
-                setUser({
+                user = {
                     username,
-                    uid: data.uid // Storing the uid returned from the server
-                });
+                    uid : data.uid
+                }
+                Cookies.set('userInfo', JSON.stringify(user), {expires : 7});
+                // setUser({
+                //     username,
+                //     uid: data.uid // Storing the uid returned from the server
+                // });
                 return true;
             } else {
                 return false;
