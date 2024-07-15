@@ -32,7 +32,7 @@ export default function AddTask({ projectID, taskList, setTaskList }) {
   };
 
   useEffect(() => {
-    setTaskData({...taskData, dueDate: formatDate(date)})
+    setTaskData({...taskData, dueDate: data.toLocaleDateString('fr-FR') })
     console.log(date);
   }, [date])
 
