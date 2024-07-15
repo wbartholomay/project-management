@@ -2,6 +2,8 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Task from "./Task";
+import { handleEditTask, handleDeleteTask, handleSwitchTask } from "./ProjectTask";
+import TaskButtons from "./TaskButtons";
 const Project = () => {
   const [taskList, setTaskList] = useState([]);
   const location = useLocation();
@@ -17,7 +19,7 @@ const Project = () => {
       .catch((error) => {
         console.error(error);
       });
-  }, [location, taskList]);
+  }, [location]);
   if (!project) {
     return <div>No project data available.</div>;
   }
@@ -37,15 +39,15 @@ const Project = () => {
             {taskList
               .filter((task) => !task.isComplete)
               .map((task) => (
-                <div className="card task-card">
-                  <div className="task-buttons">
-                    <button className="edit-button">Edit</button>
-                    <button onClick={() => handleDelete(task._id)} className="delete-button">Delete</button>
-                  </div>
-                  <div className="task-switch">
-                    <button className="switch-button">Switch</button>
-                  </div>
-                  <Task key={task._id} task={task} />
+                <div key={task._id} className="card task-card">
+                  <TaskButtons
+                    task={task}
+                    taskList={taskList}
+                    handleDeleteTask={handleDeleteTask}
+                    handleEditTask={handleEditTask}
+                    handleSwitchTask={handleSwitchTask}
+                  ></TaskButtons>
+                  <Task task={task} />
                 </div>
               ))}
           </div>
@@ -54,15 +56,15 @@ const Project = () => {
             {taskList
               .filter((task) => task.isComplete)
               .map((task) => (
-                <div className="card task-card">
-                  <div className="task-buttons">
-                    <button className="edit-button">Edit</button>
-                    <button className="delete-button">Delete</button>
-                  </div>
-                  <div className="task-switch">
-                    <button className="switch-button">Switch</button>
-                  </div>
-                  <Task key={task._id} task={task} />
+                <div key={task._id} className="card task-card">
+                  <TaskButtons
+                    task={task}
+                    taskList={taskList}
+                    handleDeleteTask={handleDeleteTask}
+                    handleEditTask={handleEditTask}
+                    handleSwitchTask={handleSwitchTask}
+                  ></TaskButtons>
+                  <Task task={task} />
                 </div>
               ))}
           </div>
