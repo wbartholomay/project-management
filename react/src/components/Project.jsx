@@ -87,9 +87,12 @@ const Project = () => {
           />
         </div>
       )}
+      <p>Project Editor</p>
       <div>
-        <h1>{project.name}</h1>
-        <div className="container mt-5">
+        <div id="project-name-card" className="card">
+          <h1>{project.name}</h1>
+        </div>
+        <div className="container mt-4">
           <div className="row">
             <div className="col-md-6 bg-light border">
               <h5>Team Members:</h5>
@@ -98,10 +101,10 @@ const Project = () => {
                 ))}
               <button
                 type="submit"
-                className="btn btn-primary"
+                className="button-main"
                 onClick={handleAddMembersPopup}
               >
-                Add
+                Add Member
               </button>
             </div>
             <div className="col-md-6 bg-light border">
@@ -110,7 +113,7 @@ const Project = () => {
               <p>Workload: {project.workload}</p>
               <p>Time to Complete: {project.daysToComplete} days</p>
               <button type="submit"
-                className="btn btn-primary"
+                className="button-main"
                 onClick={handleEditProjectPopup}>
                   Edit
                 </button>
@@ -121,8 +124,8 @@ const Project = () => {
       <br />
       <br />
       <h2>Tasks</h2>
-      <div className="container mt-5">
-        <button onClick={handleAddTaskPopup} className="btn-primary">
+      <div className="container">
+        <button onClick={handleAddTaskPopup} className="button-main">
           Add Task
         </button>
         <div className="row">
