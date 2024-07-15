@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 export default function AddTeamMember(props) {
   const [member, setMember] = useState("");
   const id = props.id;
+  const updateTeamMembers = props.updateTeamMembers
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,6 +24,7 @@ export default function AddTeamMember(props) {
       );
 
       console.log(response)
+      updateTeamMembers(member);
     } catch (err) {
       console.log(err);
     }
