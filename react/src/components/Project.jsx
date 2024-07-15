@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import AddTeamMember from "./AddTeamMember";
 import Task from "./Task";
 import {
   handleEditTask,
@@ -44,6 +45,7 @@ const Project = () => {
                   <p>{member}</p>
                 ))}
               </u1>
+              <AddTeamMember id ={project._id}/>
             </div>
             <div className="col-md-6 bg-light border">
             <h5>Project Details:</h5>

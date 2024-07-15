@@ -208,7 +208,7 @@ app.put("/projects/:id", async (req, res) => {
   await putItem("projects", req, res);
 });
 
-app.put("projects/:id/teamMembers", async (req, res) => {
+app.post("projects/:id/addMember", async (req, res) => {
   const { id } = req.params;
   const { member } = req.body;
 
