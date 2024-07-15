@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useAuth } from "../hooks/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from 'js-cookie'
+import { handleAddTask } from "./ProjectTask";
+import DatePicker from "react-date-picker"
 
 export default function AddTask({ projectID }) {
   // const { user } = useAuth();
@@ -29,30 +31,7 @@ export default function AddTask({ projectID }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const response = await fetch("http://127.0.0.1:3000/tasks/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(projectData),
-      });
-
-      const data = await response.json();
-      console.log(data);
-      alert("Project Successfully Added.");
-      setProjectData({
-        name: "",
-        manager: user.username,
-        teamMembers: [user.username],
-        teamSize: 0,
-        budget: 0,
-        workload: 1,
-        daysToComplete: -1,
-      });
-    } catch (err) {
-      console.error(err);
-    }
+    handleAddTask(taskData, setTaskData);
   };
 
   return (
@@ -73,49 +52,23 @@ export default function AddTask({ projectID }) {
           />
           <br></br>
           <br></br>
-          <label className="form-label" id="budget-label" htmlFor="budget">
-            Budget:
+          <label className="form-label" id="description-label" htmlFor="description">
+            Description:
           </label>
           <input
             className="form-field"
-            id="budget"
-            name="budget"
-            value={taskData.budget}
+            id="description"
+            name="description"
+            value={taskData.description}
             onChange={handleChange}
-            type="number"
+            type="text"
           />
           <br />
           <br />
-          <label className="form-label" id="workload-label" htmlFor="workload">
-            Workload:
+          <label className="form-label" id="dueData-label" htmlFor="dueData">
+            Due Data:
           </label>
-          <select
-            className="form-field"
-            id="workload"
-            name="workload"
-            value={taskData.workload}
-            onChange={handleChange}
-          >
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>5</option>
-            <option>8</option>
-            <option>13</option>
-          </select>
-          <br />
-          <br />
-          <label className="form-label" id="time-label" htmlFor="budget">
-            Time To Complete:
-          </label>
-          <input
-            className="form-field"
-            id="time"
-            name="timeToComplete"
-            value={projectData.timeToComplete}
-            onChange={handleChange}
-            type="number"
-          />
+            <DatePicker onChange={handleChange} value={taskData.dueDate}></DatePicker>
           <br />
           <br />
           <button type="submit" className="btn btn-primary">
