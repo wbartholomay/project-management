@@ -18,6 +18,7 @@ import Register from "./components/Register";
 import { AuthProvider } from "./hooks/AuthContext";
 import RequireAuth from "./components/RequireAuth";
 import AddProject from "./components/AddProject";
+import Logout from "./components/Logout.jsx"
 
 function App() {
   const [count, setCount] = useState(0);

@@ -45,7 +45,6 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     try {
       Cookies.remove("userInfo");
-      alert("Successfully Logged Out. Returning to Login.")
     } catch (err) {
       console.error(error);
     }
