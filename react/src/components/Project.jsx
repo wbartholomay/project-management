@@ -41,7 +41,7 @@ const Project = () => {
       {isAddTaskOpen && (
         <div id="add-task-card" className="card">
           <button onClick={handleAddTaskPopup} className="btn-primary close-popup">X</button>
-          <AddTask projectID={project._id}></AddTask>
+          <AddTask projectID={project._id} taskList={taskList} setTaskList={setTaskList}></AddTask>
         </div>
       )}
       <div>

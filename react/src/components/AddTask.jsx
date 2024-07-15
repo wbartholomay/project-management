@@ -7,7 +7,7 @@ import DatePicker from "react-date-picker"
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 
-export default function AddTask({ projectID }) {
+export default function AddTask({ projectID, taskList, setTaskList }) {
   // const { user } = useAuth();
   const user = JSON.parse(Cookies.get('userInfo'));
   const [date, setDate] = useState(new Date()); 
@@ -38,7 +38,7 @@ export default function AddTask({ projectID }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    handleAddTask(taskData, setTaskData);
+    handleAddTask(taskData, setTaskData, taskList, setTaskList);
   };
 
   return (
