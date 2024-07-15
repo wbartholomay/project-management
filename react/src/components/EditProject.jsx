@@ -13,7 +13,7 @@ export default function EditProject(props) {
     if (name in projectData) {
       setProjectData({
         ...projectData,
-        [name]: value,
+        [name]: parseInt(value),
       });
     }
   };
@@ -44,6 +44,8 @@ export default function EditProject(props) {
   return (
     <>
       <div id="edit-project-card">
+        <h5>Edit Project Details</h5>
+        <br/>
         <form onSubmit={handleSubmit}>
           <label className="form-label" id="budget-label" htmlFor="budget">
             Budget:
