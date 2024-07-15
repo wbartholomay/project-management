@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { useAuth } from "../hooks/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
+import Cookies from 'js-cookie'
 
 export default function AddProject() {
-  const { user } = useAuth();
+  // const { user } = useAuth();
+  const user = JSON.parse(Cookies.get('userInfo'));
+  
   const [projectData, setProjectData] = useState({
     name: "",
     manager: user.username,
@@ -71,6 +74,19 @@ export default function AddProject() {
           />
           <br></br>
           <br></br>
+          {/* <label className="form-label" id="team-members-label" htmlFor="budget">
+            Team Members:
+          </label>
+          <input
+            className="form-field"
+            id="team-members"
+            name="teamMembers"
+            value={projectData.teamMembers}
+            onChange={handleChange}
+            type="text"
+          />
+          <br />
+          <br /> */}
           <label className="form-label" id="budget-label" htmlFor="budget">
             Budget:
           </label>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../hooks/AuthContext";
 import { useNavigate, Link, useLocation } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -18,7 +19,6 @@ export default function Login() {
       const loginSucceeded = await login(username, password);
       if (loginSucceeded) {
         alert("Success.");
-        
         navigate(from.pathname);
       } else {
         setUsername("");
