@@ -43,6 +43,7 @@ const Project = () => {
               </u1>
             </div>
             <div className="col-md-6 bg-light border">
+            <h5>Project Details:</h5>
               <p>Workload: {project.workload}</p>
               <p>Estimated Days to Completion: {project.daysToComplete}</p>
             </div>
