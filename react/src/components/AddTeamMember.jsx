@@ -4,11 +4,12 @@ import { useNavigate, Link } from "react-router-dom";
 import Cookies from "js-cookie";
 
 export default function AddTeamMember(props) {
-  const [member, setMember] = useState();
+  const [member, setMember] = useState("");
   const id = props.id;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(member);
     try {
       const response = await fetch(
         `http://127.0.0.1:3000/projects/${id}/addMember`,
@@ -17,11 +18,11 @@ export default function AddTeamMember(props) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: { member: member },
+          body: JSON.stringify({ member: member }),
         }
       );
 
-      const data = await response.json();
+      console.log(response)
     } catch (err) {
       console.log(err);
     }
@@ -38,7 +39,7 @@ export default function AddTeamMember(props) {
           id="member"
           name="member"
           value={member}
-          onChance={setMember}
+          onChange={(e) => setMember(e.target.value)}
           type="text"
         />
         <button type="submit" className="btn btn-primary">
