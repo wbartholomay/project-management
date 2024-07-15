@@ -22,14 +22,17 @@ async function handleDeleteTask(id, setTaskList) {
   }
 }
 
-async function handleEditTask(projectId, taskData, setTaskData, taskList, setTaskList){
+async function handleEditTask(taskData, setTaskData, taskList, setTaskList){
   try {
-    const response = await fetch(`${import.meta.env.VITE_TASKS_URL}${projectId}`, {
+    const {dueDate, estimatedDuration, personAssigned} = taskData
+    const payload = {dueDate, estimatedDuration, personAssigned}
+    console.log("payload  " + JSON.stringify(payload))
+    const response = await fetch(`${import.meta.env.VITE_TASKS_URL}${taskData._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(taskData),
+        body: JSON.stringify(payload),
       });
       console.log(taskData);
 
