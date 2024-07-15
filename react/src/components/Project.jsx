@@ -9,11 +9,17 @@ import {
   handleSwitchTask,
 } from "./ProjectTask";
 import TaskButtons from "./TaskButtons";
+import AddTask from "./AddTask";
 const Project = () => {
   const [taskList, setTaskList] = useState([]);
   const location = useLocation();
   const project = location.state || {};
 
+  const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
+  function handleAddTaskPopup(){
+    setIsAddTaskOpen(!isAddTaskOpen);
+  }
+  const addTeamMember = () => {
   const generateTimeToComplete = async () => {
     try {
       const response = await fetch("http://localhost:3000/predictTime", {
@@ -32,7 +38,6 @@ const Project = () => {
         console.log(err);
       }
   }
-
   console.log(project);
   useEffect(() => {
     fetch(import.meta.env.VITE_TASKS_URL + project._id)
@@ -50,6 +55,12 @@ const Project = () => {
 
   return (
     <>
+      {isAddTaskOpen && (
+        <div id="add-task-card" className="card">
+          <button onClick={handleAddTaskPopup} className="btn-primary close-popup">X</button>
+          <AddTask projectID={project._id}></AddTask>
+        </div>
+      )}
       <div>
         <h1>{project.name}</h1>
         <div className="container mt-5">
@@ -78,6 +89,7 @@ const Project = () => {
       <br/>
       <h2>Tasks</h2>
       <div className="container mt-5">
+        <button onClick={handleAddTaskPopup} className="btn-primary">Add Task</button>
         <div className="row">
           <div className="col-md-6 bg-light border">
             <h4 className="text-center">To Do</h4>

@@ -43,7 +43,7 @@ export default function AddTask({ projectID }) {
 
   return (
     <>
-      <div id="add-project-card" className="form-card">
+      <div id="add-project-card" >
         <h3>Add Task</h3>
         <form onSubmit={(e) => handleSubmit(e)}>
           <label className="form-label" id="name-label" htmlFor="username">
