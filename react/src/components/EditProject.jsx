@@ -5,6 +5,7 @@ export default function EditProject(props) {
   const [projectData, setProjectData] = useState({
     budget: project.budget,
     workload: project.workload,
+    teamSize: project.teamSize,
     daysToComplete: project.daysToComplete,
   });
 
@@ -17,7 +18,7 @@ export default function EditProject(props) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(project),
+        body: JSON.stringify(projectData),
       });
 
       const data = await response.json();
