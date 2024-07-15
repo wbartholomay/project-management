@@ -3,6 +3,7 @@ async function handleDeleteTask(id, taskList){
    const response = fetch(`${import.meta.env.VITE_TASKS_URL}${id}`, {
      method: "DELETE",
    });
+   console.log(response);
    if (!response.ok){
      alert("Item could not be deleted!");
    }
