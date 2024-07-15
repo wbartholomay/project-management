@@ -10,6 +10,7 @@ import {
 } from "./ProjectTask";
 import TaskButtons from "./TaskButtons";
 import AddTask from "./AddTask";
+import EditProject from "./EditProject";
 const Project = () => {
   const [taskList, setTaskList] = useState([]);
   const [completetionTime, setCompletionTime] = useState(-1);
@@ -18,15 +19,19 @@ const Project = () => {
 
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [isGenerateTimeOpen, setIsGenerateTimeOpen] = useState(false);
-  const [isAddMembersOpen, setIsAddMembersOpen] = useState(false)
+  const [isAddMembersOpen, setIsAddMembersOpen] = useState(false);
+  const [isEditProjectOpen, setIsEditProjectOpen] = useState(false);
   function handleAddTaskPopup() {
     setIsAddTaskOpen(!isAddTaskOpen);
   }
   function handleTimePopup() {
     setIsGenerateTimeOpen(!isGenerateTimeOpen);
   }
-  function handleAddMembersPopup(){
+  function handleAddMembersPopup() {
     setIsAddMembersOpen(!isAddMembersOpen);
+  }
+  function handleEditProjectPopup() {
+    setIsEditProjectOpen(!isEditProjectOpen);
   }
 
   const generateTime = async () => {
@@ -98,7 +103,11 @@ const Project = () => {
           >
             X
           </button>
-          <AddTask projectID={project._id} taskList={taskList} setTaskList={setTaskList}></AddTask>
+          <AddTask
+            projectID={project._id}
+            taskList={taskList}
+            setTaskList={setTaskList}
+          ></AddTask>
         </div>
       )}
       {isGenerateTimeOpen && (
@@ -125,7 +134,25 @@ const Project = () => {
           >
             X
           </button>
-          <AddTeamMember id={project._id} teamMembers={project.teamMembers} handleAddMembersPopup={handleAddMembersPopup}/>
+          <AddTeamMember
+            id={project._id}
+            teamMembers={project.teamMembers}
+            handleAddMembersPopup={handleAddMembersPopup}
+          />
+        </div>
+      )}
+      {isEditProjectOpen && (
+        <div id="add-task-card" className="card">
+          <button
+            onClick={handleEditProjectPopup}
+            className="btn-primary close-popup"
+          >
+            X
+          </button>
+          <EditProject
+            project={project}
+            handleEditProjectPopup={handleEditProjectPopup}
+          />
         </div>
       )}
       <div>
@@ -139,9 +166,13 @@ const Project = () => {
                   <p>{member}</p>
                 ))}
               </u1>
-              <button type="submit"
+              <button
+                type="submit"
                 className="btn btn-primary"
-                onClick={handleAddMembersPopup}>Add</button>
+                onClick={handleAddMembersPopup}
+              >
+                Add
+              </button>
             </div>
             <div className="col-md-6 bg-light border">
               <h5>Project Details:</h5>
@@ -155,6 +186,11 @@ const Project = () => {
               >
                 Generate
               </button>
+              <button type="submit"
+                className="btn btn-primary"
+                onClick={handleEditProjectPopup}>
+                  Edit
+                </button>
             </div>
           </div>
         </div>

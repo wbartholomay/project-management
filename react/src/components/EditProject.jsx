@@ -22,7 +22,7 @@ export default function EditProject(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://127.0.0.1:3000/projects", {
+      const response = await fetch(`http://127.0.0.1:3000/projects/${project._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -30,7 +30,7 @@ export default function EditProject(props) {
         body: JSON.stringify(projectData),
       });
 
-      const data = await response.json();
+      console.log(response);
       props.project.budget = projectData.budget;
       props.project.daysToComplete = projectData.daysToComplete;
       props.project.workload = projectData.workload;
