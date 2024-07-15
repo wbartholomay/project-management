@@ -11,15 +11,15 @@ import {
 import TaskButtons from "./TaskButtons";
 import AddTask from "./AddTask";
 import EditProject from "./EditProject";
+import EditTask from "./EditTask"
 const Project = () => {
   const [taskList, setTaskList] = useState([]);
-  const [completetionTime, setCompletionTime] = useState(-1);
   const location = useLocation();
   const project = location.state || {};
-
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [isAddMembersOpen, setIsAddMembersOpen] = useState(false);
   const [isEditProjectOpen, setIsEditProjectOpen] = useState(false);
+  const [isEditTaskOpen, setIsEditTaskOpen] = useState(false);
   function handleAddTaskPopup() {
     setIsAddTaskOpen(!isAddTaskOpen);
   }
@@ -28,6 +28,9 @@ const Project = () => {
   }
   function handleEditProjectPopup() {
     setIsEditProjectOpen(!isEditProjectOpen);
+  }
+  function handleEditTaskPopup() {
+    setIsEditTaskOpen(!isEditTaskOpen);
   }
 
   // console.log(project);
@@ -55,7 +58,13 @@ const Project = () => {
           >
             X
           </button>
-          <AddTask projectId={project._id} taskList={taskList} setTaskList={setTaskList}></AddTask>
+          <AddTask
+            projectId={project._id}
+            taskList={taskList}
+            setTaskList={setTaskList}
+            teamMembers={project.teamMembers}
+            handleAddTaskPopup={handleAddTaskPopup}
+          ></AddTask>
         </div>
       )}
       {isAddMembersOpen && (
@@ -87,14 +96,31 @@ const Project = () => {
           />
         </div>
       )}
+      {isEditTaskOpen && (
+        <div id="add-task-card" className="card">
+          <button
+            onClick={handleEditTaskPopup}
+            className="btn-primary close-popup"
+          >
+            X
+          </button>
+          <EditTask
+            projectId={project._id}
+            taskList={taskList}
+            setTaskList={setTaskList}
+            teamMembers={project.teamMembers}
+            handleEditTaskPopup={handleEditTaskPopup}
+          />
+        </div>
+      )}
       <div>
         <h1>{project.name}</h1>
         <div className="container mt-5">
           <div className="row">
             <div className="col-md-6 bg-light border">
               <h5>Team Members:</h5>
-                {project.teamMembers.map((member, index) => (
-                  <p key={member}>{member}</p>
+                {project.teamMembers.map((member) => (
+                  <p>{member}</p>
                 ))}
               <button
                 type="submit"
@@ -109,11 +135,13 @@ const Project = () => {
               <p>Budget: ${project.budget}</p>
               <p>Workload: {project.workload}</p>
               <p>Time to Complete: {project.daysToComplete} days</p>
-              <button type="submit"
+              <button
+                type="submit"
                 className="btn btn-primary"
-                onClick={handleEditProjectPopup}>
-                  Edit
-                </button>
+                onClick={handleEditProjectPopup}
+              >
+                Edit
+              </button>
             </div>
           </div>
         </div>
@@ -139,6 +167,7 @@ const Project = () => {
                     handleDeleteTask={handleDeleteTask}
                     handleEditTask={handleEditTask}
                     handleSwitchTask={handleSwitchTask}
+                    handleEditTaskPopup={handleEditTaskPopup}
                   ></TaskButtons>
                   <Task task={task} />
                 </div>

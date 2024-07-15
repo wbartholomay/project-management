@@ -7,7 +7,7 @@ import DatePicker from "react-date-picker"
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 
-export default function AddTask({ projectId, taskList, setTaskList }) {
+export default function AddTask({ projectId, taskList, setTaskList, teamMembers, handleAddTaskPopup }) {
   // const { user } = useAuth();
   const user = JSON.parse(Cookies.get('userInfo'));
   const [date, setDate] = useState(new Date()); 
@@ -16,6 +16,7 @@ export default function AddTask({ projectId, taskList, setTaskList }) {
     description: "",
     isComplete: false,
     dueDate: "",
+    personAssigned: teamMembers[0],
     estimatedDuration: 0,
     projectId: projectId,
   });
@@ -53,6 +54,7 @@ export default function AddTask({ projectId, taskList, setTaskList }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     handleAddTask(taskData, setTaskData, taskList, setTaskList);
+    handleAddTaskPopup();
   };
 
   return (
@@ -89,7 +91,7 @@ export default function AddTask({ projectId, taskList, setTaskList }) {
             Due Date:
           </label>
           <br />
-            <DatePicker onChange={setDate} value={date}></DatePicker>
+            <DatePicker onChange={setDate} value={date} clearIcon={null}></DatePicker>
           <br />
           <br />
           <label className="form-label" id="estimatedDuration-label" htmlFor="estimatedDuration">
@@ -103,6 +105,22 @@ export default function AddTask({ projectId, taskList, setTaskList }) {
             onChange={handleChange}
             type="text"
           />
+          <br />
+          <br />
+          <label className="form-label" id="personAssigned-label" htmlFor="personAssigned">
+            Person Assigned:
+          </label>
+          <select
+            className="form-field"
+            id="personAssigned"
+            name="personAssigned"
+            value={taskData.personAssigned}
+            onChange={handleChange}
+          >
+            {teamMembers.map((member) => (
+              <option>{member}</option>
+            ))}
+          </select>
           <br />
           <br />
           <button type="submit" className="btn btn-primary">
