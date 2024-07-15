@@ -2,8 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import dotenv from "dotenv";
 import { useAuth } from "../hooks/AuthContext";
+import Cookies from 'js-cookie';
+
 export default function SelectProject() {
-  const { user } = useAuth();
+  // const { user } = useAuth();
+  const user = JSON.parse(Cookies.get('userInfo'));
+  console.log(user);
+  console.log(user.username);
   if (!user) {
     return <div>Error fetching login credentials, please login again</div>;
   }

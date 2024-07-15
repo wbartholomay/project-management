@@ -22,7 +22,10 @@ import AddProject from "./components/AddProject";
 function App() {
   const [count, setCount] = useState(0);
 
-  function nav
+  function navigateToStart(event){
+    event.preventDefault();
+    window.location.href = '/';
+  }
 
   //const {user} = userAuth();
   return (
@@ -31,7 +34,7 @@ function App() {
         <AuthProvider>
           <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
-              <a className="navbar-brand" href="#" onClick={() => {window.location.href = '/'}}>
+              <a className="navbar-brand" href="#" onClick={(e) => {navigateToStart(e)}}>
                 Project Management
               </a>
               <button

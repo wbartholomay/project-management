@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useAuth } from "../hooks/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
+import Cookies from 'js-cookie'
 
 export default function AddProject() {
-  const { user } = useAuth();
+  // const { user } = useAuth();
+  const user = JSON.parse(Cookies.get('userInfo'));
   
   const [projectData, setProjectData] = useState({
     name: "",
