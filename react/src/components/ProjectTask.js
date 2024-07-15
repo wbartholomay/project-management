@@ -1,4 +1,4 @@
-async function handleDeleteTask(id, taskList, setTaskList) {
+async function handleDeleteTask(id, setTaskList) {
   console.log(id);
   
   try {
@@ -7,7 +7,7 @@ async function handleDeleteTask(id, taskList, setTaskList) {
     });
 
     if (!response.ok) {
-      const errorText = await response.text(); // or response.json() if your server responds with JSON
+      const errorText = await response.text();
       console.error('Delete request failed:', errorText);
       alert("Item could not be deleted!");
       return;
@@ -22,12 +22,40 @@ async function handleDeleteTask(id, taskList, setTaskList) {
   }
 }
 
-
 function handleEditTask(){
 
 }
 
-function handleSwitchTask(){
+async function handleSwitchTask(id, task, taskList, setTaskList){
+  console.log(id);
+  
+  try {
+    const isComplete = task.isComplete;
+    const response = await fetch(`${import.meta.env.VITE_TASKS_URL}${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json", 
+      },
+      body: JSON.stringify({
+        isComplete: true, 
+      }),
+    });
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Put request failed:", errorText);
+      alert("Item could not be changed!");
+      return;
+    }
+
+    setTaskList((taskList) =>
+      taskList.map((t) =>
+        t._id === id ? { ...t, isComplete: !isComplete } : t
+      )
+    );
+  } catch (error) {
+    console.error("Error during fetch:", error);
+    alert("An error occurred while trying to delete the item!");
+  }
 
 }
 

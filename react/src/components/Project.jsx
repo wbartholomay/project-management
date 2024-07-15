@@ -22,7 +22,6 @@ const Project = () => {
       .then((response) => response.json())
       .then((data) => {
         setTaskList(data);
-        console.log(data);
       })
       .catch((error) => {
         console.error(error);

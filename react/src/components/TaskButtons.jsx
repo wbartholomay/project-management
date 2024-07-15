@@ -18,7 +18,7 @@ export default function TaskButtons({ task, taskList, setTaskList, handleEditTas
           </button>
         </div>
         <div className="task-switch">
-          <button onClick={() => handleSwitchTask(task._id, taskList)} className="switch-button">
+          <button onClick={() => handleSwitchTask(task._id, task, taskList, setTaskList)} className="switch-button">
             Switch
           </button>
         </div>
