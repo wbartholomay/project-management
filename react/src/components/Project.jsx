@@ -172,7 +172,6 @@ const Project = () => {
               .filter((task) => !task.isComplete)
               .map((task) => (
                 <div key={task._id} className="card task-card">
-                  { isManager &&
                   <TaskButtons
                     task={task}
                     taskList={taskList}
@@ -181,7 +180,8 @@ const Project = () => {
                     handleEditTask={handleEditTask}
                     handleSwitchTask={handleSwitchTask}
                     handleEditTaskPopup={handleEditTaskPopup}
-                  ></TaskButtons>}
+                    isManager={isManager}
+                  ></TaskButtons>
                   <Task task={task} />
                 </div>
               ))}
@@ -192,7 +192,6 @@ const Project = () => {
               .filter((task) => task.isComplete)
               .map((task) => (
                 <div key={task._id} className="card task-card">
-                  { isManager &&
                     <TaskButtons
                     task={task}
                     taskList={taskList}
@@ -201,7 +200,8 @@ const Project = () => {
                     handleEditTask={handleEditTask}
                     handleSwitchTask={handleSwitchTask}
                     handleEditTaskPopup={handleEditTaskPopup}
-                  ></TaskButtons>}
+                    isManager={isManager}
+                  ></TaskButtons>
                   <Task task={task} />
                 </div>
               ))}
