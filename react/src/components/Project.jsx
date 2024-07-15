@@ -123,7 +123,6 @@ const Project = () => {
                 {project.teamMembers.map((member) => (
                   <p>{member}</p>
                 ))}
-              </u1>
               <button
                 type="submit"
                 className="btn btn-primary"
