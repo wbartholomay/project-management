@@ -36,9 +36,12 @@ async function handleSwitchTask(id, task, taskList, setTaskList){
     console.log(isComplete)
     const response = await fetch(`${import.meta.env.VITE_TASKS_URL}${id}`, {
       method: "PUT",
-      body: {
-        "isComplete": !isComplete,
+      headers: {
+        "Content-Type": "application/json", 
       },
+      body: JSON.stringify({
+        isComplete: true, 
+      }),
     });
     console.log(await response.text())
     if (!response.ok) {
