@@ -23,7 +23,7 @@ async function handleDeleteTask(id, setTaskList) {
 }
 
 function handleEditTask(){
-
+  
 }
 
 async function handleSwitchTask(id, task, taskList, setTaskList){

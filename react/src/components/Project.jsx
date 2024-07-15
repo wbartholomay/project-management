@@ -55,7 +55,13 @@ const Project = () => {
           >
             X
           </button>
-          <AddTask projectId={project._id} taskList={taskList} setTaskList={setTaskList}></AddTask>
+          <AddTask
+            projectId={project._id}
+            taskList={taskList}
+            setTaskList={setTaskList}
+            teamMembers={project.teamMembers}
+            handleAddTaskPopup={handleAddTaskPopup}
+          ></AddTask>
         </div>
       )}
       {isAddMembersOpen && (
@@ -94,7 +100,7 @@ const Project = () => {
             <div className="col-md-6 bg-light border">
               <h5>Team Members:</h5>
               <u1>
-                {project.teamMembers.map((member, index) => (
+                {project.teamMembers.map((member) => (
                   <p>{member}</p>
                 ))}
               </u1>
@@ -111,11 +117,13 @@ const Project = () => {
               <p>Budget: ${project.budget}</p>
               <p>Workload: {project.workload}</p>
               <p>Time to Complete: {project.daysToComplete} days</p>
-              <button type="submit"
+              <button
+                type="submit"
                 className="btn btn-primary"
-                onClick={handleEditProjectPopup}>
-                  Edit
-                </button>
+                onClick={handleEditProjectPopup}
+              >
+                Edit
+              </button>
             </div>
           </div>
         </div>
