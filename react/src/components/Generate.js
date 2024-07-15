@@ -1,6 +1,8 @@
-const generateTime = async (event) => {
+const generateTime = async (event, setLoading) => {
   //generates predicted completion time, opens popup window and displays it there
   event.preventDefault();
+
+  setLoading(true);
   try {
     const response = await fetch("http://localhost:3000/predictTime", {
       method: "POST",
@@ -18,6 +20,8 @@ const generateTime = async (event) => {
     });
   } catch (err) {
     console.log(err);
+  } finally {
+    setLoading(false);
   }
 };
 

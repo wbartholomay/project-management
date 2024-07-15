@@ -2,6 +2,7 @@ import { useState } from "react";
 import generateTime from "./Generate";
 export default function EditProject(props) {
   const project = props.project;
+  const [loading, setLoading] = useState(false)
   const [projectData, setProjectData] = useState({
     budget: project.budget,
     workload: project.workload,
@@ -91,9 +92,10 @@ export default function EditProject(props) {
             onChange={handleChange}
             type="number"
           />
-          <button onClick={generateTime} className="btn btn-primary">
+          <button onClick={() => generateTime(setLoading)} className="btn btn-primary">
             Generate
           </button>
+          {loading && <label>Loading...</label>}
           <br></br>
           <br></br>
           <button onClick={handleSubmit} className="btn btn-primary">

@@ -133,7 +133,7 @@ const Project = () => {
             <div className="col-md-6 bg-light border">
               <h5>Team Members:</h5>
                 {project.teamMembers.map((member) => (
-                  <p>{member}</p>
+                  <p key={member}>{member}</p>
                 ))}
               <button
                 type="submit"
