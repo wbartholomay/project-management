@@ -1,6 +1,7 @@
 import express from "express";
 import { promises as fs } from "fs";
 import { MongoClient, ObjectId } from "mongodb";
+import { PythonShell } from "python-shell";
 import dotenv from "dotenv";
 import cors from "cors";
 
@@ -139,22 +140,50 @@ app.post("/register", async (req, res) => {
   await postItem("users", req, res);
 });
 
+app.post("/predictTime", async (req, res) => {
+  const document = req.body;
+
+  try {
+    let options = {
+      mode: "text",
+      pythonOptions: ["-u"],
+      args: [document.teamSize, document.budget, document.workload],
+    };
+
+    let result = "";
+    await PythonShell.run("run-model.py", options).then((messages) => {
+      // results is an array consisting of messages collected during execution
+      result = messages[0];
+      console.log(result);
+    });
+    if (result === "") {
+      res.status(500).send("Failed to predict completion time.");
+    } else {
+      res.status(200).send(JSON.stringify({ daysToComplete: result }));
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500);
+  }
+});
+
 app.post("/login", async (req, res) => {
   const collectionName = "users";
   try {
     const client = await MongoClient.connect(url);
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
-    let {username, password} = req.body;
-    console.log(`Username: ${username}, Password: ${password}`)
+    let { username, password } = req.body;
+    console.log(`Username: ${username}, Password: ${password}`);
 
-    const result = await collection.find({'username' : username}, {'password': password}).toArray();
+    const result = await collection
+      .find({ username: username }, { password: password })
+      .toArray();
     console.log(result);
-    if(result.length > 0){
-      res.status(200).json({uid : result[0]._id});
-    }
-    else{
-      res.status(401).json({ message: 'Authentication failed' });
+    if (result.length > 0) {
+      res.status(200).json({ uid: result[0]._id });
+    } else {
+      res.status(401).json({ message: "Authentication failed" });
       console.log(result);
     }
   } catch (err) {

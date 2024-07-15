@@ -12,7 +12,7 @@ import {
 import Start from "./components/Start";
 import Login from "./components/Login";
 import SelectProject from "./components/SelectProject";
-import Project from "./components/Project";
+import Project from "./components/Project.jsx";
 import Task from "./components/Task";
 import Register from "./components/Register";
 import { AuthProvider } from "./hooks/AuthContext";
@@ -69,7 +69,7 @@ function App() {
                     </a>
                     <ul className="dropdown-menu">
                       <li>
-                        <Link className="dropdown-item" to="/add">
+                        <Link className="dropdown-item" to="/AddProject">
                           Add Project
                         </Link>
                       </li>
@@ -124,9 +124,9 @@ function App() {
                     <Route
                       path="/AddProject"
                       element={
-                        // <RequireAuth>
+                        <RequireAuth>
                           <AddProject></AddProject>
-                        // </RequireAuth>
+                        </RequireAuth>
                       }
                     ></Route>
                     <Route

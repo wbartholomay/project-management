@@ -3,9 +3,11 @@ import { useAuth } from "../hooks/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function AddProject() {
+  const { user } = useAuth();
   const [projectData, setProjectData] = useState({
     name: "",
-    teamMembers: [],
+    manager: user.username,
+    teamMembers: [user.username],
     teamSize: 0,
     budget: 0,
     workload: 1,
@@ -35,11 +37,12 @@ export default function AddProject() {
       });
 
       const data = await response.json();
-      console.log(data)
-      alert("Project Successfully Added.")
+      console.log(data);
+      alert("Project Successfully Added.");
       setProjectData({
         name: "",
-        teamMembers: [],
+        manager: user.username,
+        teamMembers: [user.username],
         teamSize: 0,
         budget: 0,
         workload: 1,
@@ -98,6 +101,19 @@ export default function AddProject() {
             <option>8</option>
             <option>13</option>
           </select>
+          <br />
+          <br />
+          <label className="form-label" id="time-label" htmlFor="budget">
+            Time To Complete:
+          </label>
+          <input
+            className="form-field"
+            id="time"
+            name="timeToComplete"
+            value={projectData.timeToComplete}
+            onChange={handleChange}
+            type="number"
+          />
           <br />
           <br />
           <button type="submit" className="btn btn-primary">

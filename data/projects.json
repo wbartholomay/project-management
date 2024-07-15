@@ -1,5 +1,6 @@
 [{
         "name" : "make a shopping website",
+        "manager" : "jsmith",
         "teamMembers" : ["jsmith", "ljones", "wjames"],
         "teamSize" : 3,
         "budget" : 10000,
@@ -8,6 +9,7 @@
 },
 {
         "name": "build a mobile app",
+        "manager" : "tkim",
         "teamMembers": ["mjohnson", "tkim", "bchen"],
         "teamSize": 3,
         "budget": 15000,
@@ -16,6 +18,7 @@
     },
     {
         "name": "design a logo",
+        "manager" : "asmith",
         "teamMembers": ["asmith", "klee", "ppatel"],
         "teamSize": 3,
         "budget": 5000,
