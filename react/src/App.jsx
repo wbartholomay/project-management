@@ -67,41 +67,11 @@ function App() {
                       Select a project
                     </Link>
                   </li>
+
                   <li className="nav-item">
-                    <Link className="nav-link" to="/about">
-                      About
+                    <Link className="nav-link" to="/AddProject">
+                      Add Project
                     </Link>
-                  </li>
-                  <li className="nav-item dropdown">
-                    <a
-                      className="nav-link dropdown-toggle"
-                      href="#"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      Dropdown
-                    </a>
-                    <ul className="dropdown-menu">
-                      <li>
-                        <Link className="dropdown-item" to="/AddProject">
-                          Add Project
-                        </Link>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          Another action
-                        </a>
-                      </li>
-                      <li>
-                        <hr className="dropdown-divider" />
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          Something else here
-                        </a>
-                      </li>
-                    </ul>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" to="/logout">
@@ -113,7 +83,7 @@ function App() {
               <div></div>
             </div>
           </nav>
-          <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+          <main role="main" className="ml-sm-auto px-md-4">
             <div className="container-fluid">
               <div className="row">
                 <div className="card-container">
@@ -154,9 +124,7 @@ function App() {
                     ></Route>
                     <Route
                       path="/AddTask"
-                      element={
-                        <AddTask></AddTask>
-                      }
+                      element={<AddTask></AddTask>}
                     ></Route>
                     <Route
                       path="/Task"

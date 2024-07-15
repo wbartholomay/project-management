@@ -93,11 +93,9 @@ const Project = () => {
           <div className="row">
             <div className="col-md-6 bg-light border">
               <h5>Team Members:</h5>
-              <u1>
                 {project.teamMembers.map((member, index) => (
-                  <p>{member}</p>
+                  <p key={member}>{member}</p>
                 ))}
-              </u1>
               <button
                 type="submit"
                 className="btn btn-primary"
