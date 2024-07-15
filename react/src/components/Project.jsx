@@ -8,13 +8,11 @@ const Project = () => {
   const [taskList, setTaskList] = useState([]);
   const location = useLocation();
   const project = location.state || {};
-  console.log(project);
   useEffect(() => {
     fetch(import.meta.env.VITE_TASKS_URL + project._id)
       .then((response) => response.json())
       .then((data) => {
         setTaskList(data);
-        console.log(data);
       })
       .catch((error) => {
         console.error(error);
