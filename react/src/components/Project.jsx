@@ -12,6 +12,9 @@ import TaskButtons from "./TaskButtons";
 import AddTask from "./AddTask";
 import EditProject from "./EditProject";
 import EditTask from "./EditTask"
+import Cookies from "js-cookie"
+
+
 const Project = () => {
   const [taskList, setTaskList] = useState([]);
   const [currentTaskId, setCurrentTaskId] = useState("");
@@ -21,6 +24,10 @@ const Project = () => {
   const [isAddMembersOpen, setIsAddMembersOpen] = useState(false);
   const [isEditProjectOpen, setIsEditProjectOpen] = useState(false);
   const [isEditTaskOpen, setIsEditTaskOpen] = useState(false);
+
+  const {username} = JSON.parse(Cookies.get('userInfo'));
+  const isManager = username === project.manager;
+
   function handleAddTaskPopup() {
     setIsAddTaskOpen(!isAddTaskOpen);
   }
@@ -155,9 +162,10 @@ const Project = () => {
       <br />
       <h2>Tasks</h2>
       <div className="container">
+        { isManager &&
         <button onClick={handleAddTaskPopup} className="button-main">
           Add Task
-        </button>
+        </button>}
         <div className="row">
           <div className="col-md-6 bg-light border">
             <h4 className="text-center">To Do</h4>
@@ -165,6 +173,7 @@ const Project = () => {
               .filter((task) => !task.isComplete)
               .map((task) => (
                 <div key={task._id} className="card task-card">
+                  { isManager &&
                   <TaskButtons
                     task={task}
                     taskList={taskList}
@@ -173,7 +182,7 @@ const Project = () => {
                     handleEditTask={handleEditTask}
                     handleSwitchTask={handleSwitchTask}
                     handleEditTaskPopup={handleEditTaskPopup}
-                  ></TaskButtons>
+                  ></TaskButtons>}
                   <Task task={task} />
                 </div>
               ))}
@@ -184,7 +193,8 @@ const Project = () => {
               .filter((task) => task.isComplete)
               .map((task) => (
                 <div key={task._id} className="card task-card">
-                  <TaskButtons
+                  { isManager &&
+                    <TaskButtons
                     task={task}
                     taskList={taskList}
                     setTaskList={setTaskList}
@@ -192,7 +202,7 @@ const Project = () => {
                     handleEditTask={handleEditTask}
                     handleSwitchTask={handleSwitchTask}
                     handleEditTaskPopup={handleEditTaskPopup}
-                  ></TaskButtons>
+                  ></TaskButtons>}
                   <Task task={task} />
                 </div>
               ))}
