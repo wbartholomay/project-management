@@ -7,15 +7,12 @@ import DatePicker from "react-date-picker"
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 
-export default function EditTask({ task, taskList, setTaskList, teamMembers, handleEditTaskPopup }) {
+export default function EditTask({ taskId, taskList, setTaskList, teamMembers, handleEditTask, handleEditTaskPopup, projectId }) {
   // const { user } = useAuth();
-  const user = JSON.parse(Cookies.get('userInfo'));
-  const [date, setDate] = useState(new Date()); 
-  const [taskData, setTaskData] = useState({
-    dueDate: "",
-    personAssigned: teamMembers[0],
-    estimatedDuration: 0,
-  });
+  const [date, setDate] = useState(new Date());
+  const task = taskList.find(task => task._id === taskId);
+  const [taskData, setTaskData] = useState(task);
+  console.log(taskData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,6 +38,11 @@ export default function EditTask({ task, taskList, setTaskList, teamMembers, han
     return `${month}/${day}/${year}`;
   };
 
+  const convertDateFormat = (dateStr) => {
+    const [day, month, year] = dateStr.split('/');
+    return new Date(`${year}-${month}-${day}`);
+  };
+
   const parseDate = (dateString) => {
     const [month, day, year] = dateString.split('/').map(Number);
     const fullYear = year + 2000; 
@@ -49,8 +51,8 @@ export default function EditTask({ task, taskList, setTaskList, teamMembers, han
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    handlEditTask(taskData, setTaskData, taskList, setTaskList);
-    handleAddTaskPopup();
+    handleEditTask(projectId, taskData, setTaskData, taskList, setTaskList);
+    handleEditTaskPopup();
   };
 
   return (
