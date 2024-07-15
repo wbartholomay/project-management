@@ -11,15 +11,16 @@ import {
 import TaskButtons from "./TaskButtons";
 import AddTask from "./AddTask";
 import EditProject from "./EditProject";
+import EditTask from "./EditTask"
 const Project = () => {
   const [taskList, setTaskList] = useState([]);
-  const [completetionTime, setCompletionTime] = useState(-1);
+  const [currentTaskId, setCurrentTaskId] = useState("");
   const location = useLocation();
   const project = location.state || {};
-
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [isAddMembersOpen, setIsAddMembersOpen] = useState(false);
   const [isEditProjectOpen, setIsEditProjectOpen] = useState(false);
+  const [isEditTaskOpen, setIsEditTaskOpen] = useState(false);
   function handleAddTaskPopup() {
     setIsAddTaskOpen(!isAddTaskOpen);
   }
@@ -28,6 +29,10 @@ const Project = () => {
   }
   function handleEditProjectPopup() {
     setIsEditProjectOpen(!isEditProjectOpen);
+  }
+  function handleEditTaskPopup(taskId = "" ) {
+    setIsEditTaskOpen(!isEditTaskOpen);
+    setCurrentTaskId(taskId);
   }
 
   // console.log(project);
@@ -55,7 +60,13 @@ const Project = () => {
           >
             X
           </button>
-          <AddTask projectId={project._id} taskList={taskList} setTaskList={setTaskList}></AddTask>
+          <AddTask
+            projectId={project._id}
+            taskList={taskList}
+            setTaskList={setTaskList}
+            teamMembers={project.teamMembers}
+            handleAddTaskPopup={handleAddTaskPopup}
+          ></AddTask>
         </div>
       )}
       {isAddMembersOpen && (
@@ -88,6 +99,25 @@ const Project = () => {
         </div>
       )}
       <p>Project Editor</p>
+      {isEditTaskOpen && (
+        <div id="add-task-card" className="card">
+          <button
+            onClick={handleEditTaskPopup}
+            className="btn-primary close-popup"
+          >
+            X
+          </button>
+          <EditTask
+            projectId={project._id}
+            taskId={currentTaskId}
+            taskList={taskList}
+            setTaskList={setTaskList}
+            teamMembers={project.teamMembers}
+            handleEditTask={handleEditTask}
+            handleEditTaskPopup={handleEditTaskPopup}
+          />
+        </div>
+      )}
       <div>
         <div id="project-name-card" className="card">
           <h1>{project.name}</h1>
@@ -96,8 +126,8 @@ const Project = () => {
           <div className="row">
             <div className="col-md-6 bg-light border">
               <h5>Team Members:</h5>
-                {project.teamMembers.map((member, index) => (
-                  <p key={member}>{member}</p>
+                {project.teamMembers.map((member) => (
+                  <p>{member}</p>
                 ))}
               <button
                 type="submit"
@@ -142,6 +172,7 @@ const Project = () => {
                     handleDeleteTask={handleDeleteTask}
                     handleEditTask={handleEditTask}
                     handleSwitchTask={handleSwitchTask}
+                    handleEditTaskPopup={handleEditTaskPopup}
                   ></TaskButtons>
                   <Task task={task} />
                 </div>
@@ -160,6 +191,7 @@ const Project = () => {
                     handleDeleteTask={handleDeleteTask}
                     handleEditTask={handleEditTask}
                     handleSwitchTask={handleSwitchTask}
+                    handleEditTaskPopup={handleEditTaskPopup}
                   ></TaskButtons>
                   <Task task={task} />
                 </div>

@@ -22,8 +22,28 @@ async function handleDeleteTask(id, setTaskList) {
   }
 }
 
-function handleEditTask(){
+async function handleEditTask(projectId, taskData, setTaskData, taskList, setTaskList){
+  try {
+    const response = await fetch(`${import.meta.env.VITE_TASKS_URL}${projectId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(taskData),
+      });
+      console.log(taskData);
 
+      console.log(response);
+      // console.log(taskData);
+      // console.log(data);
+      console.log(taskList);
+      setTaskList((prevTaskList) => prevTaskList.filter((task) => task._id != taskData._id));
+      setTaskList((prevTaskList) => [...prevTaskList, taskData]);
+      alert("Task Successfully Updated.");
+
+    } catch (err) {
+      console.error(err);
+    }
 }
 
 async function handleSwitchTask(id, task, taskList, setTaskList){
