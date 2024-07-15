@@ -10,7 +10,7 @@ import 'react-calendar/dist/Calendar.css';
 export default function AddTask({ projectID, taskList, setTaskList }) {
   // const { user } = useAuth();
   const user = JSON.parse(Cookies.get('userInfo'));
-  const [date, setDate] = useState(new Date()); 
+  const [date, setDate] = useState(""); 
   const [taskData, setTaskData] = useState({
     name: "",
     description: "",
@@ -32,13 +32,26 @@ export default function AddTask({ projectID, taskList, setTaskList }) {
   };
 
   useEffect(() => {
-    setTaskData({...taskData, dueDate: date})
+    setTaskData({...taskData, dueDate: formatDate(date)})
     console.log(date);
   }, [date])
 
+  const formatDate = (date) => {
+    const day = date.getDate();
+    const month = date.getMonth() + 1; 
+    const year = date.getFullYear().toString().slice(-2); 
+    return `${month}/${day}/${year}`;
+  };
+
+  const parseDate = (dateString) => {
+    const [month, day, year] = dateString.split('/').map(Number);
+    const fullYear = year + 2000; 
+    return new Date(fullYear, month - 1, day); 
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    handleAddTask(taskData, setTaskData, taskList, setTaskList);
+    handleAddTask(taskData, setTaskData, setTaskList);
   };
 
   return (
