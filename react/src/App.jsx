@@ -103,7 +103,15 @@ function App() {
               <div className="row">
                 <div className="card-container">
                   <Routes>
-                    <Route exact path="/" element={<RequireAuth><Start></Start></RequireAuth>}></Route>
+                    <Route
+                      exact
+                      path="/"
+                      element={
+                        <RequireAuth>
+                          <Start></Start>
+                        </RequireAuth>
+                      }
+                    ></Route>
                     <Route path="/Login" element={<Login />} />
                     <Route
                       path="/SelectProject"
