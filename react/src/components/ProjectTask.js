@@ -83,7 +83,6 @@ async function handleAddTask(taskData, setTaskData, taskList, setTaskList){
         isComplete: false,
         dueDate: "",
         estimatedDuration: 0,
-        projectID: projectID,
       });
 
 
