@@ -28,7 +28,10 @@ const Project = () => {
     <>
       <div>
         <h1>{project.name}</h1>
-        <p>Team Size: {project.teamSize}</p>
+        <h5>Team Members:</h5>
+        <u1>{project.teamMembers.map((member, index) => (
+          <p>{member}</p>
+        ))}</u1>
         <p>Workload: {project.workload}</p>
         <p>Estimated Days to Completion: {project.daysToComplete}</p>
       </div>
