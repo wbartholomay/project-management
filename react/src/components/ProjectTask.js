@@ -22,8 +22,31 @@ async function handleDeleteTask(id, setTaskList) {
   }
 }
 
-function handleEditTask(){
+async function handleEditTask(taskData, setTaskData, taskList, setTaskList){
+  try {
+    const {dueDate, estimatedDuration, personAssigned} = taskData
+    const payload = {dueDate, estimatedDuration, personAssigned}
+    console.log("payload  " + JSON.stringify(payload))
+    const response = await fetch(`${import.meta.env.VITE_TASKS_URL}${taskData._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      console.log(taskData);
 
+      console.log(response);
+      // console.log(taskData);
+      // console.log(data);
+      console.log(taskList);
+      setTaskList((prevTaskList) => prevTaskList.filter((task) => task._id != taskData._id));
+      setTaskList((prevTaskList) => [...prevTaskList, taskData]);
+      alert("Task Successfully Updated.");
+
+    } catch (err) {
+      console.error(err);
+    }
 }
 
 async function handleSwitchTask(id, task, taskList, setTaskList){
@@ -37,7 +60,7 @@ async function handleSwitchTask(id, task, taskList, setTaskList){
         "Content-Type": "application/json", 
       },
       body: JSON.stringify({
-        isComplete: true, 
+        isComplete: !isComplete, 
       }),
     });
     if (!response.ok) {
@@ -59,4 +82,36 @@ async function handleSwitchTask(id, task, taskList, setTaskList){
 
 }
 
-export {handleEditTask, handleDeleteTask, handleSwitchTask}
+async function handleAddTask(taskData, setTaskData, taskList, setTaskList){
+
+    try {
+    const response = await fetch(`${import.meta.env.VITE_TASKS_URL}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(taskData),
+      });
+
+      const data = await response.json();
+      taskData["_id"] = data.insertedId;
+      console.log(taskData)
+      console.log(data);
+      setTaskList((taskList) =>[...taskList, taskData])
+      alert("Task Successfully Added.");
+
+      setTaskData({
+        name: "",
+        description: "",
+        isComplete: false,
+        dueDate: "",
+        estimatedDuration: 0,
+      });
+
+
+    } catch (err) {
+      console.error(err);
+    }
+}
+
+export {handleEditTask, handleDeleteTask, handleSwitchTask, handleAddTask}

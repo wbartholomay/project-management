@@ -1,19 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../hooks/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from 'js-cookie'
+import { handleAddTask } from "./ProjectTask";
+import DatePicker from "react-date-picker"
+import 'react-date-picker/dist/DatePicker.css';
+import 'react-calendar/dist/Calendar.css';
 
-export default function AddTask({ projectID }) {
+export default function AddTask({ projectId, taskList, setTaskList, teamMembers, handleAddTaskPopup }) {
   // const { user } = useAuth();
   const user = JSON.parse(Cookies.get('userInfo'));
-  
+  const [date, setDate] = useState(new Date()); 
   const [taskData, setTaskData] = useState({
     name: "",
     description: "",
     isComplete: false,
     dueDate: "",
+    personAssigned: teamMembers[0],
     estimatedDuration: 0,
-    projectID: projectID,
+    projectId: projectId,
   });
 
   const handleChange = (e) => {
@@ -27,37 +32,34 @@ export default function AddTask({ projectID }) {
     }
   };
 
+  useEffect(() => {
+    const newDate = date
+    setTaskData({...taskData, dueDate: newDate.toLocaleDateString('fr-FR') })
+    console.log(date);
+  }, [date])
+
+  const formatDate = (date) => {
+    const day = date.getDate();
+    const month = date.getMonth() + 1; 
+    const year = date.getFullYear().toString().slice(-2); 
+    return `${month}/${day}/${year}`;
+  };
+
+  const parseDate = (dateString) => {
+    const [month, day, year] = dateString.split('/').map(Number);
+    const fullYear = year + 2000; 
+    return new Date(fullYear, month - 1, day); 
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      const response = await fetch("http://127.0.0.1:3000/tasks/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(projectData),
-      });
-
-      const data = await response.json();
-      console.log(data);
-      alert("Project Successfully Added.");
-      setProjectData({
-        name: "",
-        manager: user.username,
-        teamMembers: [user.username],
-        teamSize: 0,
-        budget: 0,
-        workload: 1,
-        daysToComplete: -1,
-      });
-    } catch (err) {
-      console.error(err);
-    }
+    handleAddTask(taskData, setTaskData, taskList, setTaskList);
+    handleAddTaskPopup();
   };
 
   return (
     <>
-      <div id="add-project-card" className="form-card">
+      <div id="add-project-card" >
         <h3>Add Task</h3>
         <form onSubmit={(e) => handleSubmit(e)}>
           <label className="form-label" id="name-label" htmlFor="username">
@@ -73,53 +75,56 @@ export default function AddTask({ projectID }) {
           />
           <br></br>
           <br></br>
-          <label className="form-label" id="budget-label" htmlFor="budget">
-            Budget:
+          <label className="form-label" id="description-label" htmlFor="description">
+            Description:
           </label>
-          <input
+          <textarea
             className="form-field"
-            id="budget"
-            name="budget"
-            value={taskData.budget}
+            id="description"
+            name="description"
+            value={taskData.description}
             onChange={handleChange}
-            type="number"
           />
           <br />
           <br />
-          <label className="form-label" id="workload-label" htmlFor="workload">
-            Workload:
+          <label className="form-label" id="dueData-label" htmlFor="dueData">
+            Due Date:
+          </label>
+          <br />
+            <DatePicker onChange={setDate} value={date} clearIcon={null}></DatePicker>
+          <br />
+          <br />
+          <label className="form-label" id="estimatedDuration-label" htmlFor="estimatedDuration">
+            Estimated Duration:
+          </label>
+          <input
+            className="form-field"
+            id="estimatedDuration"
+            name="estimatedDuration"
+            value={taskData.estimatedDuration}
+            onChange={handleChange}
+            type="text"
+          />
+          <br />
+          <br />
+          <label className="form-label" id="personAssigned-label" htmlFor="personAssigned">
+            Person Assigned:
           </label>
           <select
             className="form-field"
-            id="workload"
-            name="workload"
-            value={taskData.workload}
+            id="personAssigned"
+            name="personAssigned"
+            value={taskData.personAssigned}
             onChange={handleChange}
           >
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>5</option>
-            <option>8</option>
-            <option>13</option>
+            {teamMembers.map((member) => (
+              <option>{member}</option>
+            ))}
           </select>
           <br />
           <br />
-          <label className="form-label" id="time-label" htmlFor="budget">
-            Time To Complete:
-          </label>
-          <input
-            className="form-field"
-            id="time"
-            name="timeToComplete"
-            value={projectData.timeToComplete}
-            onChange={handleChange}
-            type="number"
-          />
-          <br />
-          <br />
           <button type="submit" className="btn btn-primary">
-            Add Project
+            Add Task
           </button>
           <br />
           <br />
