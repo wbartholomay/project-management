@@ -59,10 +59,10 @@ async function handleSwitchTask(id, task, taskList, setTaskList){
 
 }
 
-async function handleAddTask(taskData, setTaskData){
+async function handleAddTask(taskData, setTaskData, taskList, setTaskList){
 
     try {
-    const response = await fetch(`${import.meta.env.VITE_TASKS_URL}${id}`, {
+    const response = await fetch(`${import.meta.env.VITE_TASKS_URL}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +72,9 @@ async function handleAddTask(taskData, setTaskData){
 
       const data = await response.json();
       console.log(data);
+      setTaskList([...taskList, taskData])
       alert("Task Successfully Added.");
+
       setTaskData({
         name: "",
         manager: user.username,
@@ -82,6 +84,8 @@ async function handleAddTask(taskData, setTaskData){
         workload: 1,
         daysToComplete: -1,
       });
+
+
     } catch (err) {
       console.error(err);
     }

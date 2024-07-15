@@ -93,7 +93,7 @@ const Project = () => {
           >
             X
           </button>
-          <AddTask projectID={project._id}></AddTask>
+          <AddTask projectID={project._id} taskList={taskList} setTaskList={setTaskList}></AddTask>
         </div>
       )}
       {isGenerateTimeOpen && (

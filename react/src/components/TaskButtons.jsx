@@ -11,7 +11,7 @@ export default function TaskButtons({ task, taskList, setTaskList, handleEditTas
             Edit
           </button>
           <button
-            onClick={() => handleDeleteTask(task._id, taskList, setTaskList)}
+            onClick={() => handleDeleteTask(task._id, setTaskList)}
             className="delete-button"
           >
             Delete
