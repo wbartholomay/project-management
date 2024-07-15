@@ -33,6 +33,7 @@ export default function AddTask({ projectID }) {
 
   useEffect(() => {
     setTaskData({...taskData, dueDate: date})
+    console.log(date);
   }, [date])
 
   const handleSubmit = async (event) => {
@@ -61,19 +62,19 @@ export default function AddTask({ projectID }) {
           <label className="form-label" id="description-label" htmlFor="description">
             Description:
           </label>
-          <input
+          <textarea
             className="form-field"
             id="description"
             name="description"
             value={taskData.description}
             onChange={handleChange}
-            type="text"
           />
           <br />
           <br />
           <label className="form-label" id="dueData-label" htmlFor="dueData">
-            Due Data:
+            Due Date:
           </label>
+          <br />
             <DatePicker onChange={setDate} value={taskData.dueDate}></DatePicker>
           <br />
           <br />
@@ -88,7 +89,8 @@ export default function AddTask({ projectID }) {
             onChange={handleChange}
             type="text"
           />
-
+          <br />
+          <br />
           <button type="submit" className="btn btn-primary">
             Add Task
           </button>
