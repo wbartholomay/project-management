@@ -119,7 +119,6 @@ const Project = () => {
           <div className="row">
             <div className="col-md-6 bg-light border">
               <h5>Team Members:</h5>
-              <u1>
                 {project.teamMembers.map((member) => (
                   <p>{member}</p>
                 ))}
