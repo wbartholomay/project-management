@@ -21,16 +21,21 @@ import AddProject from "./components/AddProject";
 import Logout from "./components/Logout.jsx"
 import AddTeamMember from "./components/AddTeamMember.jsx";
 import AddTask from "./components/AddTask.jsx";
+import Cookies from "js-cookie"
 
 function App() {
   const [count, setCount] = useState(0);
-
+  
   function navigateToStart(event) {
     event.preventDefault();
     window.location.href = "/";
   }
 
-  //const {user} = userAuth();
+  const userInfo = Cookies.get('userInfo');
+  let username = ""
+  if(userInfo !== undefined){
+    username = JSON.parse(userInfo).username
+  }
   return (
     <>
       <Router>
@@ -78,6 +83,9 @@ function App() {
                     <Link className="nav-link" to="/logout">
                       Logout
                     </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link id="username-label" className="nav-link">{username !== "" ? "Welcome, " + username : ""}</Link>
                   </li>
                 </ul>
               </div>
