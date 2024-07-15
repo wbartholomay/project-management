@@ -12,6 +12,10 @@ const Project = () => {
   const [taskList, setTaskList] = useState([]);
   const location = useLocation();
   const project = location.state || {};
+
+  const addTeamMember = () => {
+  }
+
   console.log(project);
   useEffect(() => {
     fetch(import.meta.env.VITE_TASKS_URL + project._id)
