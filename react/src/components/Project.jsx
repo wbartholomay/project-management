@@ -2,7 +2,11 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Task from "./Task";
-import { handleEditTask, handleDeleteTask, handleSwitchTask } from "./ProjectTask";
+import {
+  handleEditTask,
+  handleDeleteTask,
+  handleSwitchTask,
+} from "./ProjectTask";
 import TaskButtons from "./TaskButtons";
 const Project = () => {
   const [taskList, setTaskList] = useState([]);
@@ -28,13 +32,26 @@ const Project = () => {
     <>
       <div>
         <h1>{project.name}</h1>
-        <h5>Team Members:</h5>
-        <u1>{project.teamMembers.map((member, index) => (
-          <p>{member}</p>
-        ))}</u1>
-        <p>Workload: {project.workload}</p>
-        <p>Estimated Days to Completion: {project.daysToComplete}</p>
+        <div className="container mt-5">
+          <div className="row">
+            <div className="col-md-6 bg-light border">
+              <h5>Team Members:</h5>
+              <u1>
+                {project.teamMembers.map((member, index) => (
+                  <p>{member}</p>
+                ))}
+              </u1>
+            </div>
+            <div className="col-md-6 bg-light border">
+              <p>Workload: {project.workload}</p>
+              <p>Estimated Days to Completion: {project.daysToComplete}</p>
+            </div>
+          </div>
+        </div>
       </div>
+      <br/>
+      <br/>
+      <h2>Tasks</h2>
       <div className="container mt-5">
         <div className="row">
           <div className="col-md-6 bg-light border">
