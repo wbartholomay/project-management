@@ -208,6 +208,45 @@ app.put("/projects/:id", async (req, res) => {
   await putItem("projects", req, res);
 });
 
+app.post("/projects/:id/addMember", async (req, res) => {
+  const { id } = req.params;
+  const { member } = req.body;
+  console.log(req.body);
+  const collectionName = "projects";
+
+  try {
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection(collectionName);
+
+    const project = await collection.findOne({ _id: new ObjectId(id) });
+    console.log(project);
+
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+
+    if (!project.teamMembers.includes(member)) {
+      project.teamMembers.push(member);
+
+      const result = await collection.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: { teamMembers: project.teamMembers } }
+      );
+
+      if (result.modifiedCount > 0) {
+        // If the document was updated successfully
+        return res.status(200).json({ message: "Team member added" });
+      } else {
+        // Handle the case where the update did not modify any document
+        return res.status(400).json({ message: "Failed to add team member" });
+      }
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Server error", error });
+  }
+});
+
 app.put("/tasks/:id", async (req, res) => {
   await putItem("tasks", req, res);
 });

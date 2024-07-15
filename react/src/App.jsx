@@ -19,16 +19,23 @@ import { AuthProvider } from "./hooks/AuthContext";
 import RequireAuth from "./components/RequireAuth";
 import AddProject from "./components/AddProject";
 import Logout from "./components/Logout.jsx"
+import AddTeamMember from "./components/AddTeamMember.jsx";
+import AddTask from "./components/AddTask.jsx";
+import Cookies from "js-cookie"
 
 function App() {
   const [count, setCount] = useState(0);
-
+  
   function navigateToStart(event) {
     event.preventDefault();
     window.location.href = "/";
   }
 
-  //const {user} = userAuth();
+  const userInfo = Cookies.get('userInfo');
+  let username = ""
+  if(userInfo !== undefined){
+    username = JSON.parse(userInfo).username
+  }
   return (
     <>
       <Router>
@@ -36,13 +43,14 @@ function App() {
           <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
               <a
-                className="navbar-brand"
+                id="logo-title"
+                className="navbar-brand" 
                 href="#"
                 onClick={(e) => {
                   navigateToStart(e);
                 }}
               >
-                Project Management
+              Ultimate Project Manager
               </a>
               <button
                 className="navbar-toggler"
@@ -65,53 +73,26 @@ function App() {
                       Select a project
                     </Link>
                   </li>
+
                   <li className="nav-item">
-                    <Link className="nav-link" to="/about">
-                      About
+                    <Link className="nav-link" to="/AddProject">
+                      Add Project
                     </Link>
-                  </li>
-                  <li className="nav-item dropdown">
-                    <a
-                      className="nav-link dropdown-toggle"
-                      href="#"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      Dropdown
-                    </a>
-                    <ul className="dropdown-menu">
-                      <li>
-                        <Link className="dropdown-item" to="/AddProject">
-                          Add Project
-                        </Link>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          Another action
-                        </a>
-                      </li>
-                      <li>
-                        <hr className="dropdown-divider" />
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="#">
-                          Something else here
-                        </a>
-                      </li>
-                    </ul>
                   </li>
                   <li className="nav-item">
                     <Link className="nav-link" to="/logout">
                       Logout
                     </Link>
                   </li>
+                  <li className="nav-item">
+                    <Link id="username-label" className="nav-link">{username !== "" ? "Welcome, " + username : ""}</Link>
+                  </li>
                 </ul>
               </div>
               <div></div>
             </div>
           </nav>
-          <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+          <main role="main" className="ml-sm-auto px-md-4">
             <div className="container-fluid">
               <div className="row">
                 <div className="card-container">
@@ -121,7 +102,7 @@ function App() {
                       path="/"
                       element={
                         <RequireAuth>
-                          <Start></Start>
+                          <SelectProject></SelectProject>
                         </RequireAuth>
                       }
                     ></Route>
@@ -151,6 +132,10 @@ function App() {
                       }
                     ></Route>
                     <Route
+                      path="/AddTask"
+                      element={<AddTask></AddTask>}
+                    ></Route>
+                    <Route
                       path="/Task"
                       element={
                         <RequireAuth>
@@ -163,6 +148,7 @@ function App() {
                       element={<Register></Register>}
                     ></Route>
                     <Route path="/Logout" element={<Logout></Logout>}></Route>
+                    {/* <Route path="/addMember" element={<AddTeamMember></AddTeamMember>}></Route> */}
                   </Routes>
                 </div>
               </div>

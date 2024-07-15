@@ -3,6 +3,7 @@ import React from 'react'
 export default function Task({ task }) {
   return (
     <>
+    <br />
       <div className="task-name">{task.name}</div>
       <div>{task.description}</div>
       <div>{task.isComplete}</div>

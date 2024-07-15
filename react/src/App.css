@@ -5,6 +5,14 @@
   text-align: center;
 }
 
+#logo-title {
+  font-weight: 700;
+  color: rgb(0, 144, 163);
+}
+
+.navbar {
+  border-bottom: solid 1px #888;
+}
 .card {
   padding: 2em;
 }
@@ -22,7 +30,58 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) 
+  transform: translate(-50%, -50%);
+}
+
+#delete-proj-button {
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  border-radius: 500px;
+  transition-property: background-color, border-color, color, box-shadow, filter;
+  transition-duration: 0.3s;
+  border: 1px solid transparent;
+  letter-spacing: 2px;
+  min-width: 160px;
+  text-transform: uppercase;
+  white-space: normal;
+  font-weight: 700;
+  text-align: center;
+  padding: 8px 38px;
+  margin-bottom: 1em;
+  color: #fff;
+  background-color: rgb(235, 51, 44);
+  height: 38px;
+}
+
+#add-task-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  height: fit-content;
+  width: fit-content;
+  z-index: 9999;
+}
+
+#project-name-card {
+  width: fit-content;
+  margin: auto;
+  font-weight: 300;
+  height: fit-content;
+}
+#project-name-card h1 {
+  font-size: larger;
+}
+#generated-time-card {
+  width: 20vw;
+}
+
+#add-member-card {
+  width: 60vw;
 }
 
 #username {
@@ -37,14 +96,19 @@
 #password {
   width: 15em;
 }
-#confirm-password-label{
+#confirm-password-label {
   width: 12em;
 }
-#confirm-password{
+#confirm-password {
   width: 15em;
 }
+.close-popup {
+  position: absolute;
+  width: 2em;
+  right: 1%;
+}
 
-.task-card{
+.task-card {
   transition: transform 0.1s ease-in-out;
   margin: 1em;
 }
@@ -57,20 +121,16 @@
   color: #888;
 }
 
-.form-label{
-  width: 12em
+.form-label {
+  width: 12em;
 }
 
-.form-field{
-  width: 15em
+.form-field {
+  width: 15em;
 }
 
-.form-card{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 2em
+.form-card {
+  margin: auto;
 }
 
 .project-name {
@@ -97,11 +157,66 @@
   left: 1%;
 }
 .switch-button {
-  margin: .5em;
+  margin: 0.5em;
 }
 .edit-button {
-  margin: .5em;
+  margin: 0.5em;
 }
 .delete-button {
-  margin: .5em;
+  margin: 0.5em;
+}
+
+.button-main {
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  border-radius: 500px;
+  transition-property: background-color, border-color, color, box-shadow, filter;
+  transition-duration: 0.3s;
+  border: 1px solid transparent;
+  letter-spacing: 2px;
+  min-width: 160px;
+  text-transform: uppercase;
+  white-space: normal;
+  font-weight: 700;
+  text-align: center;
+  padding: 8px 38px;
+  margin-bottom: 1em;
+  color: #fff;
+  background-color: rgb(0, 195, 221);
+  height: 38px;
+}
+
+.button-main:hover {
+  transform: scale(1.04);
+  background-color: rgb(0, 195, 221);
+}
+
+.button-secondary {
+  display: inline-block;
+  outline: none;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  border-radius: 500px;
+  transition-property: background-color, border-color, color, box-shadow, filter;
+  transition-duration: 0.3s;
+  border: 1px solid transparent;
+  letter-spacing: 2px;
+  min-width: fit-content;
+  text-transform: uppercase;
+  white-space: normal;
+  font-weight: 700;
+  text-align: center;
+  padding: 1em, 2em, 1em;
+  color: #616467;
+  box-shadow: inset 0 0 0 2px #616467;
+  background-color: transparent;
+  height: 2em;
+}
+.button-secondary:hover {
+  color: #fff;
+  background-color: #616467;
 }
