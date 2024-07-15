@@ -18,13 +18,14 @@ import Register from "./components/Register";
 import { AuthProvider } from "./hooks/AuthContext";
 import RequireAuth from "./components/RequireAuth";
 import AddProject from "./components/AddProject";
+import Logout from "./components/Logout.jsx"
 
 function App() {
   const [count, setCount] = useState(0);
 
-  function navigateToStart(event){
+  function navigateToStart(event) {
     event.preventDefault();
-    window.location.href = '/';
+    window.location.href = "/";
   }
 
   //const {user} = userAuth();
@@ -34,7 +35,13 @@ function App() {
         <AuthProvider>
           <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
-              <a className="navbar-brand" href="#" onClick={(e) => {navigateToStart(e)}}>
+              <a
+                className="navbar-brand"
+                href="#"
+                onClick={(e) => {
+                  navigateToStart(e);
+                }}
+              >
                 Project Management
               </a>
               <button
@@ -95,9 +102,9 @@ function App() {
                     </ul>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link disabled" aria-disabled="true">
-                      Disabled
-                    </a>
+                    <Link className="nav-link" to="/logout">
+                      Logout
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -155,6 +162,7 @@ function App() {
                       path="/Register"
                       element={<Register></Register>}
                     ></Route>
+                    <Route path="/Logout" element={<Logout></Logout>}></Route>
                   </Routes>
                 </div>
               </div>
