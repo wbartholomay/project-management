@@ -18,7 +18,6 @@ export default function Login() {
       console.log(username, password);
       const loginSucceeded = await login(username, password);
       if (loginSucceeded) {
-        alert("Success.");
         navigate(from.pathname);
       } else {
         setUsername("");

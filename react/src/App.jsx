@@ -38,13 +38,14 @@ function App() {
           <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
               <a
-                className="navbar-brand"
+                id="logo-title"
+                className="navbar-brand" 
                 href="#"
                 onClick={(e) => {
                   navigateToStart(e);
                 }}
               >
-                Project Management
+              Ultimate Project Manager
               </a>
               <button
                 className="navbar-toggler"
@@ -93,7 +94,7 @@ function App() {
                       path="/"
                       element={
                         <RequireAuth>
-                          <Start></Start>
+                          <SelectProject></SelectProject>
                         </RequireAuth>
                       }
                     ></Route>
