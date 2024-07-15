@@ -29,7 +29,11 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) 
+  transform: translate(-50%, -50%);
+  background-color: white;
+  height: fit-content;
+  width: fit-content;
+  z-index: 9999; 
 }
 
 #username {
@@ -49,6 +53,11 @@
 }
 #confirm-password{
   width: 15em;
+}
+.close-popup{
+  position: absolute;
+  width: 2em;
+  right: 1%
 }
 
 .task-card{
