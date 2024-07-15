@@ -7,18 +7,14 @@ import DatePicker from "react-date-picker"
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 
-export default function AddTask({ projectId, taskList, setTaskList, teamMembers, handleEditTaskPopup }) {
+export default function EditTask({ task, taskList, setTaskList, teamMembers, handleEditTaskPopup }) {
   // const { user } = useAuth();
   const user = JSON.parse(Cookies.get('userInfo'));
   const [date, setDate] = useState(new Date()); 
   const [taskData, setTaskData] = useState({
-    name: "",
-    description: "",
-    isComplete: false,
     dueDate: "",
     personAssigned: teamMembers[0],
     estimatedDuration: 0,
-    projectId: projectId,
   });
 
   const handleChange = (e) => {
@@ -53,45 +49,20 @@ export default function AddTask({ projectId, taskList, setTaskList, teamMembers,
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    handleAddTask(taskData, setTaskData, taskList, setTaskList);
+    handlEditTask(taskData, setTaskData, taskList, setTaskList);
     handleAddTaskPopup();
   };
 
   return (
     <>
       <div id="add-project-card" >
-        <h3>Add Task</h3>
+        <h3>Edit Task</h3>
         <form onSubmit={(e) => handleSubmit(e)}>
-          <label className="form-label" id="name-label" htmlFor="username">
-            Name:
-          </label>
-          <input
-            className="form-field"
-            id="name"
-            name="name"
-            value={taskData.name}
-            onChange={handleChange}
-            type="text"
-          />
-          <br></br>
-          <br></br>
-          <label className="form-label" id="description-label" htmlFor="description">
-            Description:
-          </label>
-          <textarea
-            className="form-field"
-            id="description"
-            name="description"
-            value={taskData.description}
-            onChange={handleChange}
-          />
-          <br />
-          <br />
           <label className="form-label" id="dueData-label" htmlFor="dueData">
             Due Date:
           </label>
           <br />
-            <DatePicker onChange={setDate} value={date}></DatePicker>
+            <DatePicker onChange={setDate} value={date} clearIcon={null}></DatePicker>
           <br />
           <br />
           <label className="form-label" id="estimatedDuration-label" htmlFor="estimatedDuration">
@@ -124,7 +95,7 @@ export default function AddTask({ projectId, taskList, setTaskList, teamMembers,
           <br />
           <br />
           <button type="submit" className="btn btn-primary">
-            Add Task
+            Update
           </button>
           <br />
           <br />

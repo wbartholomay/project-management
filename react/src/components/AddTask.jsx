@@ -91,7 +91,7 @@ export default function AddTask({ projectId, taskList, setTaskList, teamMembers,
             Due Date:
           </label>
           <br />
-            <DatePicker onChange={setDate} value={date}></DatePicker>
+            <DatePicker onChange={setDate} value={date} clearIcon={null}></DatePicker>
           <br />
           <br />
           <label className="form-label" id="estimatedDuration-label" htmlFor="estimatedDuration">

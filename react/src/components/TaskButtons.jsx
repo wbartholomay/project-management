@@ -5,7 +5,7 @@ export default function TaskButtons({ task, taskList, setTaskList, handleEditTas
       <>
         <div className="task-buttons">
           <button
-            onClick={() => handleEditTask(task._id, taskList, handleEditTaskPopup)}
+            onClick={() => handleEditTaskPopup()}
             className="edit-button"
           >
             Edit
