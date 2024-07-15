@@ -5,7 +5,7 @@ import {
   Route,
   Routes,
   Link,
-  Navigate,
+  useNavigate,
   useLocation,
 } from "react-router-dom";
 
@@ -21,6 +21,9 @@ import AddProject from "./components/AddProject";
 
 function App() {
   const [count, setCount] = useState(0);
+
+  function nav
+
   //const {user} = userAuth();
   return (
     <>
@@ -28,7 +31,7 @@ function App() {
         <AuthProvider>
           <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
-              <a className="navbar-brand" href="#">
+              <a className="navbar-brand" href="#" onClick={() => {window.location.href = '/'}}>
                 Project Management
               </a>
               <button
