@@ -145,6 +145,7 @@ const Project = () => {
             </div>
             <div className="col-md-6 bg-light border">
               <h5>Project Details:</h5>
+              <p>Budget: ${project.budget}</p>
               <p>Workload: {project.workload}</p>
               <p>Time to Complete: {project.daysToComplete} days</p>
               <button
