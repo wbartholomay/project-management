@@ -6,7 +6,6 @@ import Cookies from "js-cookie";
 export default function AddTeamMember(props) {
   const [member, setMember] = useState("");
   const id = props.id;
-  const updateTeamMembers = props.updateTeamMembers
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,7 +23,8 @@ export default function AddTeamMember(props) {
       );
 
       console.log(response)
-      updateTeamMembers(member);
+      props.teamMembers.push(member);
+      props.handleAddMembersPopup();
     } catch (err) {
       console.log(err);
     }
@@ -32,6 +32,7 @@ export default function AddTeamMember(props) {
 
   return (
     <>
+    <div id="add-member-card">
       <form onSubmit={(e) => handleSubmit(e)}>
         <label className="form-label" id="member-label" htmlFor="member">
           Enter New Team Member:
@@ -44,10 +45,13 @@ export default function AddTeamMember(props) {
           onChange={(e) => setMember(e.target.value)}
           type="text"
         />
+        <br/>
+        <br/>
         <button type="submit" className="btn btn-primary">
             Add Member
         </button>
       </form>
+      </div>
     </>
   );
 }

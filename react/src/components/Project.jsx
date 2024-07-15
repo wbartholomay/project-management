@@ -18,12 +18,17 @@ const Project = () => {
 
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [isGenerateTimeOpen, setIsGenerateTimeOpen] = useState(false);
+  const [isAddMembersOpen, setIsAddMembersOpen] = useState(false)
   function handleAddTaskPopup() {
     setIsAddTaskOpen(!isAddTaskOpen);
   }
   function handleTimePopup() {
     setIsGenerateTimeOpen(!isGenerateTimeOpen);
   }
+  function handleAddMembersPopup(){
+    setIsAddMembersOpen(!isAddMembersOpen);
+  }
+
   const generateTime = async () => {
     //generates predicted completion time, opens popup window and displays it there
     try {
@@ -112,6 +117,17 @@ const Project = () => {
           {/* <button onClick="" className="btn btn-primary">confirm change</button> */}
         </div>
       )}
+      {isAddMembersOpen && (
+        <div id="add-task-card" className="card">
+          <button
+            onClick={handleAddMembersPopup}
+            className="btn-primary close-popup"
+          >
+            X
+          </button>
+          <AddTeamMember id={project._id} teamMembers={project.teamMembers} handleAddMembersPopup={handleAddMembersPopup}/>
+        </div>
+      )}
       <div>
         <h1>{project.name}</h1>
         <div className="container mt-5">
@@ -123,7 +139,9 @@ const Project = () => {
                   <p>{member}</p>
                 ))}
               </u1>
-              <AddTeamMember id={project._id} teamMembers={project.teamMembers}/>
+              <button type="submit"
+                className="btn btn-primary"
+                onClick={handleAddMembersPopup}>Add</button>
             </div>
             <div className="col-md-6 bg-light border">
               <h5>Project Details:</h5>
