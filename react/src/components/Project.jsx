@@ -11,15 +11,15 @@ import {
 import TaskButtons from "./TaskButtons";
 import AddTask from "./AddTask";
 import EditProject from "./EditProject";
+import EditTask from "./EditTask"
 const Project = () => {
   const [taskList, setTaskList] = useState([]);
-  const [completetionTime, setCompletionTime] = useState(-1);
   const location = useLocation();
   const project = location.state || {};
-
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [isAddMembersOpen, setIsAddMembersOpen] = useState(false);
   const [isEditProjectOpen, setIsEditProjectOpen] = useState(false);
+  const [isEditTaskOpen, setIsEditTaskOpen] = useState(false);
   function handleAddTaskPopup() {
     setIsAddTaskOpen(!isAddTaskOpen);
   }
@@ -28,6 +28,9 @@ const Project = () => {
   }
   function handleEditProjectPopup() {
     setIsEditProjectOpen(!isEditProjectOpen);
+  }
+  function handleEditTaskPopup() {
+    setIsEditTaskOpen(!isEditTaskOpen);
   }
 
   // console.log(project);
@@ -93,6 +96,23 @@ const Project = () => {
           />
         </div>
       )}
+      {isEditTaskOpen && (
+        <div id="add-task-card" className="card">
+          <button
+            onClick={handleEditTaskPopup}
+            className="btn-primary close-popup"
+          >
+            X
+          </button>
+          <EditTask
+            projectId={project._id}
+            taskList={taskList}
+            setTaskList={setTaskList}
+            teamMembers={project.teamMembers}
+            handleEditTaskPopup={handleEditTaskPopup}
+          />
+        </div>
+      )}
       <div>
         <h1>{project.name}</h1>
         <div className="container mt-5">
@@ -149,6 +169,7 @@ const Project = () => {
                     handleDeleteTask={handleDeleteTask}
                     handleEditTask={handleEditTask}
                     handleSwitchTask={handleSwitchTask}
+                    handleEditTaskPopup={handleEditTaskPopup}
                   ></TaskButtons>
                   <Task task={task} />
                 </div>

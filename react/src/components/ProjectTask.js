@@ -22,8 +22,8 @@ async function handleDeleteTask(id, setTaskList) {
   }
 }
 
-function handleEditTask(){
-  
+function handleEditTask(id, taskList, handleEditTaskPopup){
+  handleEditTaskPopup();
 }
 
 async function handleSwitchTask(id, task, taskList, setTaskList){
