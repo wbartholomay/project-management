@@ -15,6 +15,30 @@ export default function SelectProject() {
   const username = user.username;
   const [projectList, setProjectList] = useState([]);
 
+  async function handleDelete(event, projId){
+    event.preventDefault();
+    console.log(projId);
+    try {
+      const response = await fetch(`${import.meta.env.VITE_PROJECTS_URL}${projId}`, {
+        method: "DELETE",
+      });
+  
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Delete request failed:', errorText);
+        alert("Item could not be deleted!");
+        return;
+      }
+  
+      setProjectList((prevProjectList) => 
+          prevProjectList.filter((task) => task._id !== id)
+      );
+    } catch (error) {
+      console.error('Error during fetch:', error);
+      alert("An error occurred while trying to delete the item!");
+    }
+  }
+
   useEffect(() => {
     fetch(import.meta.env.VITE_PROJECTS_URL + username)
       .then((response) => response.json())
@@ -33,6 +57,7 @@ export default function SelectProject() {
         <div>No projects found. Please create a new project!</div>
       ) : (
         projectList.map((proj) => (
+          <>
           <Link key={proj._id} to="/Project" state={proj}>
             <div className="card card-container d-flex flex-row justify-content-start">
               <div className="project-name">{proj.name}</div>
@@ -47,6 +72,8 @@ export default function SelectProject() {
               </div>
             </div>
           </Link>
+          <button onClick={(e) => handleDelete(e, proj._id)}>Delete</button>
+          </>
         ))
       )}
     </>
