@@ -71,8 +71,10 @@ async function handleAddTask(taskData, setTaskData, taskList, setTaskList){
       });
 
       const data = await response.json();
+      taskData["_id"] = data.insertedId;
+      console.log(taskData)
       console.log(data);
-      setTaskList([...taskList, taskData])
+      setTaskList((taskList) =>[...taskList, taskData])
       alert("Task Successfully Added.");
 
       setTaskData({

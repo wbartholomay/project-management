@@ -10,12 +10,12 @@ import 'react-calendar/dist/Calendar.css';
 export default function AddTask({ projectID, taskList, setTaskList }) {
   // const { user } = useAuth();
   const user = JSON.parse(Cookies.get('userInfo'));
-  const [date, setDate] = useState(""); 
+  const [date, setDate] = useState(new Date()); 
   const [taskData, setTaskData] = useState({
     name: "",
     description: "",
     isComplete: false,
-    dueDate: date,
+    dueDate: "",
     estimatedDuration: 0,
     projectID: projectID,
   });
@@ -32,7 +32,8 @@ export default function AddTask({ projectID, taskList, setTaskList }) {
   };
 
   useEffect(() => {
-    setTaskData({...taskData, dueDate: data.toLocaleDateString('fr-FR') })
+    const newDate = date
+    setTaskData({...taskData, dueDate: newDate.toLocaleDateString('fr-FR') })
     console.log(date);
   }, [date])
 
@@ -51,7 +52,7 @@ export default function AddTask({ projectID, taskList, setTaskList }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    handleAddTask(taskData, setTaskData, setTaskList);
+    handleAddTask(taskData, setTaskData, taskList, setTaskList);
   };
 
   return (
@@ -88,7 +89,7 @@ export default function AddTask({ projectID, taskList, setTaskList }) {
             Due Date:
           </label>
           <br />
-            <DatePicker onChange={setDate} value={taskData.dueDate}></DatePicker>
+            <DatePicker onChange={setDate} value={date}></DatePicker>
           <br />
           <br />
           <label className="form-label" id="estimatedDuration-label" htmlFor="estimatedDuration">
