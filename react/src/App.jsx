@@ -154,9 +154,7 @@ function App() {
                     <Route
                       path="/AddTask"
                       element={
-                        <RequireAuth>
-                          <AddTask></AddTask>
-                        </RequireAuth>
+                        <AddTask></AddTask>
                       }
                     ></Route>
                     <Route

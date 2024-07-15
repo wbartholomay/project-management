@@ -1,19 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../hooks/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
 import Cookies from 'js-cookie'
 import { handleAddTask } from "./ProjectTask";
 import DatePicker from "react-date-picker"
+import 'react-date-picker/dist/DatePicker.css';
+import 'react-calendar/dist/Calendar.css';
 
 export default function AddTask({ projectID }) {
   // const { user } = useAuth();
   const user = JSON.parse(Cookies.get('userInfo'));
-  
+  const [date, setDate] = useState(new Date()); 
   const [taskData, setTaskData] = useState({
     name: "",
     description: "",
     isComplete: false,
-    dueDate: "",
+    dueDate: date,
     estimatedDuration: 0,
     projectID: projectID,
   });
@@ -28,6 +30,10 @@ export default function AddTask({ projectID }) {
       });
     }
   };
+
+  useEffect(() => {
+    setTaskData({...taskData, dueDate: date})
+  }, [date])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -68,11 +74,23 @@ export default function AddTask({ projectID }) {
           <label className="form-label" id="dueData-label" htmlFor="dueData">
             Due Data:
           </label>
-            <DatePicker onChange={handleChange} value={taskData.dueDate}></DatePicker>
+            <DatePicker onChange={setDate} value={taskData.dueDate}></DatePicker>
           <br />
           <br />
+          <label className="form-label" id="estimatedDuration-label" htmlFor="estimatedDuration">
+            Estimated Duration:
+          </label>
+          <input
+            className="form-field"
+            id="estimatedDuration"
+            name="estimatedDuration"
+            value={taskData.estimatedDuration}
+            onChange={handleChange}
+            type="text"
+          />
+
           <button type="submit" className="btn btn-primary">
-            Add Project
+            Add Task
           </button>
           <br />
           <br />
