@@ -1,11 +1,11 @@
 import React from "react";
 
-export default function TaskButtons({ task, taskList, setTaskList, handleEditTask, handleDeleteTask, handleSwitchTask, handleEditTaskPopup }){
+export default function TaskButtons({ task, taskList, setTaskList, handleEditTask, handleDeleteTask, handleSwitchTask, handleEditTaskPopup}){
     return (
       <>
         <div className="task-buttons">
           <button
-            onClick={() => handleEditTaskPopup()}
+            onClick={() => handleEditTaskPopup(task._id)}
             className="edit-button"
           >
             Edit

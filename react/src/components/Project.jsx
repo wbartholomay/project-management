@@ -14,6 +14,7 @@ import EditProject from "./EditProject";
 import EditTask from "./EditTask"
 const Project = () => {
   const [taskList, setTaskList] = useState([]);
+  const [currentTaskId, setCurrentTaskId] = useState("");
   const location = useLocation();
   const project = location.state || {};
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
@@ -29,8 +30,9 @@ const Project = () => {
   function handleEditProjectPopup() {
     setIsEditProjectOpen(!isEditProjectOpen);
   }
-  function handleEditTaskPopup() {
+  function handleEditTaskPopup(taskId = "" ) {
     setIsEditTaskOpen(!isEditTaskOpen);
+    setCurrentTaskId(taskId);
   }
 
   // console.log(project);
@@ -106,9 +108,11 @@ const Project = () => {
           </button>
           <EditTask
             projectId={project._id}
+            taskId={currentTaskId}
             taskList={taskList}
             setTaskList={setTaskList}
             teamMembers={project.teamMembers}
+            handleEditTask={handleEditTask}
             handleEditTaskPopup={handleEditTaskPopup}
           />
         </div>
@@ -186,6 +190,7 @@ const Project = () => {
                     handleDeleteTask={handleDeleteTask}
                     handleEditTask={handleEditTask}
                     handleSwitchTask={handleSwitchTask}
+                    handleEditTaskPopup={handleEditTaskPopup}
                   ></TaskButtons>
                   <Task task={task} />
                 </div>
