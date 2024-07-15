@@ -5,7 +5,8 @@
         "complete" : false,
         "userAssigned" : "jsmith",
         "dueDate" : "2024-07-19T00:00:00Z",
-        "estimatedDaysToComplete" : 5
+        "estimatedDaysToComplete" : 5,
+        "projectId" : ""
     },
     {
         "name" : "Frontend Creation",
@@ -13,7 +14,8 @@
         "complete" : false,
         "userAssigned" : "wjames",
         "dueDate" : "2024-07-17T00:00:00Z",
-        "estimatedDaysToComplete" : 3
+        "estimatedDaysToComplete" : 3,
+        "projectId" : ""
     },
     {
         "name" : "Model Creation",
@@ -21,7 +23,8 @@
         "complete" : false,
         "userAssigned" : "ljones",
         "dueDate" : "2024-07-19T00:00:00Z",
-        "estimatedDaysToComplete" : 5
+        "estimatedDaysToComplete" : 5,
+        "projectId" : ""
     }
 
 ]
