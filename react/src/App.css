@@ -37,7 +37,11 @@
 }
 
 #generated-time-card{
-  width: 20vw
+  width: 20vw;
+}
+
+#add-member-card{
+  width: 60vw;
 }
 
 #username {
