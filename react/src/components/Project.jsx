@@ -10,6 +10,7 @@ import {
 } from "./ProjectTask";
 import TaskButtons from "./TaskButtons";
 import AddTask from "./AddTask";
+import EditProject from "./EditProject";
 const Project = () => {
   const [taskList, setTaskList] = useState([]);
   const [completetionTime, setCompletionTime] = useState(-1);
@@ -17,61 +18,17 @@ const Project = () => {
   const project = location.state || {};
 
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
-  const [isGenerateTimeOpen, setIsGenerateTimeOpen] = useState(false);
-  const [isAddMembersOpen, setIsAddMembersOpen] = useState(false)
+  const [isAddMembersOpen, setIsAddMembersOpen] = useState(false);
+  const [isEditProjectOpen, setIsEditProjectOpen] = useState(false);
   function handleAddTaskPopup() {
     setIsAddTaskOpen(!isAddTaskOpen);
   }
-  function handleTimePopup() {
-    setIsGenerateTimeOpen(!isGenerateTimeOpen);
-  }
-  function handleAddMembersPopup(){
+  function handleAddMembersPopup() {
     setIsAddMembersOpen(!isAddMembersOpen);
   }
-
-  const generateTime = async () => {
-    //generates predicted completion time, opens popup window and displays it there
-    try {
-      const response = await fetch("http://localhost:3000/predictTime", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(project),
-      });
-
-      const data = await response.json();
-      const prediction = parseInt(data.daysToComplete, 10);
-      setCompletionTime(prediction);
-      handleTimePopup();
-      console.log(isGenerateTimeOpen);
-      console.log(prediction);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const setTime = async () => {
-    //function for setting time in database, called upon confirming the generated time
-    try {
-      const response = await fetch(
-        `http://localhost:3000/projects/${project._id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ daysToComplete: completetionTime }),
-        }
-      );
-      project.daysToComplete = completetionTime;
-      setIsGenerateTimeOpen();
-
-      console.log(response);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  function handleEditProjectPopup() {
+    setIsEditProjectOpen(!isEditProjectOpen);
+  }
 
   // console.log(project);
   useEffect(() => {
@@ -125,7 +82,25 @@ const Project = () => {
           >
             X
           </button>
-          <AddTeamMember id={project._id} teamMembers={project.teamMembers} handleAddMembersPopup={handleAddMembersPopup}/>
+          <AddTeamMember
+            id={project._id}
+            teamMembers={project.teamMembers}
+            handleAddMembersPopup={handleAddMembersPopup}
+          />
+        </div>
+      )}
+      {isEditProjectOpen && (
+        <div id="add-task-card" className="card">
+          <button
+            onClick={handleEditProjectPopup}
+            className="btn-primary close-popup"
+          >
+            X
+          </button>
+          <EditProject
+            project={project}
+            handleEditProjectPopup={handleEditProjectPopup}
+          />
         </div>
       )}
       <div>
@@ -139,21 +114,24 @@ const Project = () => {
                   <p>{member}</p>
                 ))}
               </u1>
-              <button type="submit"
-                className="btn btn-primary"
-                onClick={handleAddMembersPopup}>Add</button>
-            </div>
-            <div className="col-md-6 bg-light border">
-              <h5>Project Details:</h5>
-              <p>Workload: {project.workload}</p>
-              <p>Time to Complete: {project.daysToComplete} days</p>
               <button
                 type="submit"
                 className="btn btn-primary"
-                onClick={generateTime}
+                onClick={handleAddMembersPopup}
               >
-                Generate
+                Add
               </button>
+            </div>
+            <div className="col-md-6 bg-light border">
+              <h5>Project Details:</h5>
+              <p>Budget: ${project.budget}</p>
+              <p>Workload: {project.workload}</p>
+              <p>Time to Complete: {project.daysToComplete} days</p>
+              <button type="submit"
+                className="btn btn-primary"
+                onClick={handleEditProjectPopup}>
+                  Edit
+                </button>
             </div>
           </div>
         </div>
