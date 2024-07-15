@@ -22,7 +22,6 @@ async function handleDeleteTask(id, setTaskList) {
   }
 }
 
-
 function handleEditTask(){
 
 }
@@ -32,8 +31,6 @@ async function handleSwitchTask(id, task, taskList, setTaskList){
   
   try {
     const isComplete = task.isComplete;
-    console.log(task)
-    console.log(isComplete)
     const response = await fetch(`${import.meta.env.VITE_TASKS_URL}${id}`, {
       method: "PUT",
       headers: {
@@ -43,7 +40,6 @@ async function handleSwitchTask(id, task, taskList, setTaskList){
         isComplete: true, 
       }),
     });
-    console.log(await response.text())
     if (!response.ok) {
       const errorText = await response.text();
       console.error("Put request failed:", errorText);
