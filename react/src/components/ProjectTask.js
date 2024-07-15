@@ -79,12 +79,11 @@ async function handleAddTask(taskData, setTaskData, taskList, setTaskList){
 
       setTaskData({
         name: "",
-        manager: user.username,
-        teamMembers: [user.username],
-        teamSize: 0,
-        budget: 0,
-        workload: 1,
-        daysToComplete: -1,
+        description: "",
+        isComplete: false,
+        dueDate: "",
+        estimatedDuration: 0,
+        projectID: projectID,
       });
 
 
