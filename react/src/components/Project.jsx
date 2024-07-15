@@ -43,6 +43,7 @@ const Project = () => {
                   <TaskButtons
                     task={task}
                     taskList={taskList}
+                    setTaskList={setTaskList}
                     handleDeleteTask={handleDeleteTask}
                     handleEditTask={handleEditTask}
                     handleSwitchTask={handleSwitchTask}
@@ -60,6 +61,7 @@ const Project = () => {
                   <TaskButtons
                     task={task}
                     taskList={taskList}
+                    setTaskList={setTaskList}
                     handleDeleteTask={handleDeleteTask}
                     handleEditTask={handleEditTask}
                     handleSwitchTask={handleSwitchTask}
