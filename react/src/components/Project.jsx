@@ -115,7 +115,6 @@ const Project = () => {
             X
           </button>
           <EditTask
-            projectId={project._id}
             taskId={currentTaskId}
             taskList={taskList}
             setTaskList={setTaskList}

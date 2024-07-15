@@ -7,7 +7,7 @@ import DatePicker from "react-date-picker"
 import 'react-date-picker/dist/DatePicker.css';
 import 'react-calendar/dist/Calendar.css';
 
-export default function EditTask({ taskId, taskList, setTaskList, teamMembers, handleEditTask, handleEditTaskPopup, projectId }) {
+export default function EditTask({ taskId, taskList, setTaskList, teamMembers, handleEditTask, handleEditTaskPopup}) {
   // const { user } = useAuth();
   const task = taskList.find(task => task._id === taskId);
 
@@ -38,7 +38,7 @@ export default function EditTask({ taskId, taskList, setTaskList, teamMembers, h
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    handleEditTask(projectId, taskData, setTaskData, taskList, setTaskList);
+    handleEditTask(taskData, setTaskData, taskList, setTaskList);
     handleEditTaskPopup();
   };
 
