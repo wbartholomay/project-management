@@ -19,6 +19,7 @@ import { AuthProvider } from "./hooks/AuthContext";
 import RequireAuth from "./components/RequireAuth";
 import AddProject from "./components/AddProject";
 import Logout from "./components/Logout.jsx"
+import AddTask from "./components/AddTask.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -148,6 +149,12 @@ function App() {
                         <RequireAuth>
                           <AddProject></AddProject>
                         </RequireAuth>
+                      }
+                    ></Route>
+                    <Route
+                      path="/AddTask"
+                      element={
+                        <AddTask></AddTask>
                       }
                     ></Route>
                     <Route
