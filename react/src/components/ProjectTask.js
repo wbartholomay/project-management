@@ -57,7 +57,7 @@ async function handleSwitchTask(id, task, taskList, setTaskList){
         "Content-Type": "application/json", 
       },
       body: JSON.stringify({
-        isComplete: true, 
+        isComplete: !isComplete, 
       }),
     });
     if (!response.ok) {
