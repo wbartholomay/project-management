@@ -18,14 +18,10 @@ const Project = () => {
   const project = location.state || {};
 
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
-  const [isGenerateTimeOpen, setIsGenerateTimeOpen] = useState(false);
   const [isAddMembersOpen, setIsAddMembersOpen] = useState(false);
   const [isEditProjectOpen, setIsEditProjectOpen] = useState(false);
   function handleAddTaskPopup() {
     setIsAddTaskOpen(!isAddTaskOpen);
-  }
-  function handleTimePopup() {
-    setIsGenerateTimeOpen(!isGenerateTimeOpen);
   }
   function handleAddMembersPopup() {
     setIsAddMembersOpen(!isAddMembersOpen);
@@ -33,50 +29,6 @@ const Project = () => {
   function handleEditProjectPopup() {
     setIsEditProjectOpen(!isEditProjectOpen);
   }
-
-  const generateTime = async () => {
-    //generates predicted completion time, opens popup window and displays it there
-    try {
-      const response = await fetch("http://localhost:3000/predictTime", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(project),
-      });
-
-      const data = await response.json();
-      const prediction = parseInt(data.daysToComplete, 10);
-      setCompletionTime(prediction);
-      handleTimePopup();
-      console.log(isGenerateTimeOpen);
-      console.log(prediction);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const setTime = async () => {
-    //function for setting time in database, called upon confirming the generated time
-    try {
-      const response = await fetch(
-        `http://localhost:3000/projects/${project._id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ daysToComplete: completetionTime }),
-        }
-      );
-      project.daysToComplete = completetionTime;
-      setIsGenerateTimeOpen();
-
-      console.log(response);
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   // console.log(project);
   useEffect(() => {
@@ -108,22 +60,6 @@ const Project = () => {
             taskList={taskList}
             setTaskList={setTaskList}
           ></AddTask>
-        </div>
-      )}
-      {isGenerateTimeOpen && (
-        <div id="add-task-card" className="card">
-          <button onClick={handleTimePopup} className="btn-primary close-popup">
-            X
-          </button>
-          <div id="generated-time-card">
-            <h5>Generated Time: </h5>
-            <p>{completetionTime}</p>
-            <p>Press Confirm to Update the Completion Time.</p>
-            <button onClick={setTime} className="btn btn-primary">
-              Confirm
-            </button>
-          </div>
-          {/* <button onClick="" className="btn btn-primary">confirm change</button> */}
         </div>
       )}
       {isAddMembersOpen && (
@@ -179,13 +115,6 @@ const Project = () => {
               <p>Budget: ${project.budget}</p>
               <p>Workload: {project.workload}</p>
               <p>Time to Complete: {project.daysToComplete} days</p>
-              <button
-                type="submit"
-                className="btn btn-primary"
-                onClick={generateTime}
-              >
-                Generate
-              </button>
               <button type="submit"
                 className="btn btn-primary"
                 onClick={handleEditProjectPopup}>

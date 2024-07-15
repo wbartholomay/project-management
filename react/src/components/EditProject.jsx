@@ -8,6 +8,30 @@ export default function EditProject(props) {
     daysToComplete: project.daysToComplete,
   });
 
+  const generateTime = async (event) => {
+    //generates predicted completion time, opens popup window and displays it there
+    event.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3000/predictTime", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(project),
+      });
+
+      const data = await response.json();
+      const prediction = parseInt(data.daysToComplete);
+      setProjectData({
+        ...projectData,
+        daysToComplete : prediction
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name in projectData) {
@@ -46,7 +70,7 @@ export default function EditProject(props) {
       <div id="edit-project-card">
         <h5>Edit Project Details</h5>
         <br/>
-        <form onSubmit={handleSubmit}>
+        <form>
           <label className="form-label" id="budget-label" htmlFor="budget">
             Budget:
           </label>
@@ -80,7 +104,7 @@ export default function EditProject(props) {
           <br />
           <br />
           <label className="form-label" id="time-label" htmlFor="daysToComplete">
-            Budget:
+            Time To Complete: 
           </label>
           <input
             className="form-field"
@@ -90,9 +114,12 @@ export default function EditProject(props) {
             onChange={handleChange}
             type="number"
           />
+          <button onClick={generateTime} className="btn btn-primary">
+            Generate
+          </button>
           <br></br>
           <br></br>
-          <button type="submit" className="btn btn-primary">
+          <button onClick={handleSubmit} className="btn btn-primary">
             Update
           </button>
         </form>
