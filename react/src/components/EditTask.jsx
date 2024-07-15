@@ -9,8 +9,12 @@ import 'react-calendar/dist/Calendar.css';
 
 export default function EditTask({ taskId, taskList, setTaskList, teamMembers, handleEditTask, handleEditTaskPopup, projectId }) {
   // const { user } = useAuth();
-  const [date, setDate] = useState(new Date());
   const task = taskList.find(task => task._id === taskId);
+
+
+  const [day, month, year] = task.dueDate.split('/');
+
+  const [date, setDate] = useState(new Date(year, month - 1, day));
   const [taskData, setTaskData] = useState(task);
   console.log(taskData);
 
@@ -31,23 +35,6 @@ export default function EditTask({ taskId, taskList, setTaskList, teamMembers, h
     console.log(date);
   }, [date])
 
-  const formatDate = (date) => {
-    const day = date.getDate();
-    const month = date.getMonth() + 1; 
-    const year = date.getFullYear().toString().slice(-2); 
-    return `${month}/${day}/${year}`;
-  };
-
-  const convertDateFormat = (dateStr) => {
-    const [day, month, year] = dateStr.split('/');
-    return new Date(`${year}-${month}-${day}`);
-  };
-
-  const parseDate = (dateString) => {
-    const [month, day, year] = dateString.split('/').map(Number);
-    const fullYear = year + 2000; 
-    return new Date(fullYear, month - 1, day); 
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
