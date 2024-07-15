@@ -62,7 +62,7 @@ async function handleSwitchTask(id, task, taskList, setTaskList){
 async function handleAddTask(taskData, setTaskData, taskList, setTaskList){
 
     try {
-    const response = await fetch(`${import.meta.env.VITE_TASKS_URL}${id}`, {
+    const response = await fetch(`${import.meta.env.VITE_TASKS_URL}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
