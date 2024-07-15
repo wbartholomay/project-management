@@ -20,6 +20,7 @@ const Project = () => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [isAddMembersOpen, setIsAddMembersOpen] = useState(false);
   const [isEditProjectOpen, setIsEditProjectOpen] = useState(false);
+  const [isGenerateTimeOpen, setIsGenerateTimeOpen] = useState(false);
   function handleAddTaskPopup() {
     setIsAddTaskOpen(!isAddTaskOpen);
   }
