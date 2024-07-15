@@ -14,9 +14,16 @@ export default function SelectProject() {
   }
   const username = user.username;
   const [projectList, setProjectList] = useState([]);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [currentProj, setCurrentProj] = useState("");
+  function handleConfirmOpen(projId = ""){
+    setIsConfirmOpen(!isConfirmOpen);
+    setCurrentProj(projId);
+  }
 
-  async function handleDelete(event, projId){
+  async function handleDelete(event){
     event.preventDefault();
+    const projId = currentProj;
     console.log(projId);
     try {
       const response = await fetch(`${import.meta.env.VITE_PROJECTS_URL}${projId}`, {
@@ -31,8 +38,9 @@ export default function SelectProject() {
       }
   
       setProjectList((prevProjectList) => 
-          prevProjectList.filter((task) => task._id !== id)
+          prevProjectList.filter((project) => project._id !== projId)
       );
+      handleConfirmOpen();
     } catch (error) {
       console.error('Error during fetch:', error);
       alert("An error occurred while trying to delete the item!");
@@ -52,6 +60,18 @@ export default function SelectProject() {
   }, []);
   return (
     <>
+    {isConfirmOpen && (
+        <div id="add-task-card" className="card">
+          <button
+            onClick={handleConfirmOpen}
+            className="btn-primary close-popup"
+          >
+            X
+          </button>
+          <h4>CONFIRM DELETION</h4>
+          <button onClick={(e) => handleDelete(e)}>CONFIRM</button>
+        </div>
+      )}
       <div>Your Projects</div>
       {projectList.length === 0 ? (
         <div>No projects found. Please create a new project!</div>
@@ -72,7 +92,7 @@ export default function SelectProject() {
               </div>
             </div>
           </Link>
-          <button onClick={(e) => handleDelete(e, proj._id)}>Delete</button>
+          <button onClick={(e) => handleConfirmOpen(proj._id)}>Delete</button>
           </>
         ))
       )}
