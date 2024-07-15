@@ -61,7 +61,7 @@ export default function SelectProject() {
   return (
     <>
     {isConfirmOpen && (
-        <div id="add-task-card" className="card">
+        <div id="add-task-card" className="popup-card">
           <button
             onClick={handleConfirmOpen}
             className="btn-primary close-popup"
@@ -92,7 +92,7 @@ export default function SelectProject() {
               </div>
             </div>
           </Link>
-          <button onClick={(e) => handleConfirmOpen(proj._id)}>Delete</button>
+          <button id="delete-proj-button" onClick={(e) => handleConfirmOpen(proj._id)}>Delete</button>
           </>
         ))
       )}
