@@ -20,6 +20,7 @@ const Project = () => {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [isAddMembersOpen, setIsAddMembersOpen] = useState(false);
   const [isEditProjectOpen, setIsEditProjectOpen] = useState(false);
+  const [isGenerateTimeOpen, setIsGenerateTimeOpen] = useState(false);
   function handleAddTaskPopup() {
     setIsAddTaskOpen(!isAddTaskOpen);
   }
@@ -55,11 +56,23 @@ const Project = () => {
           >
             X
           </button>
-          <AddTask
-            projectID={project._id}
-            taskList={taskList}
-            setTaskList={setTaskList}
-          ></AddTask>
+          <AddTask projectId={project._id} taskList={taskList} setTaskList={setTaskList}></AddTask>
+        </div>
+      )}
+      {isGenerateTimeOpen && (
+        <div id="add-task-card" className="card">
+          <button onClick={handleTimePopup} className="btn-primary close-popup">
+            X
+          </button>
+          <div id="generated-time-card">
+            <h5>Generated Time: </h5>
+            <p>{completetionTime}</p>
+            <p>Press Confirm to Update the Completion Time.</p>
+            <button onClick={setTime} className="btn btn-primary">
+              Confirm
+            </button>
+          </div>
+          {/* <button onClick="" className="btn btn-primary">confirm change</button> */}
         </div>
       )}
       {isAddMembersOpen && (
