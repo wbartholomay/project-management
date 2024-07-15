@@ -19,6 +19,7 @@ import { AuthProvider } from "./hooks/AuthContext";
 import RequireAuth from "./components/RequireAuth";
 import AddProject from "./components/AddProject";
 import Logout from "./components/Logout.jsx"
+import AddTeamMember from "./components/AddTeamMember.jsx";
 import AddTask from "./components/AddTask.jsx";
 
 function App() {
@@ -170,6 +171,7 @@ function App() {
                       element={<Register></Register>}
                     ></Route>
                     <Route path="/Logout" element={<Logout></Logout>}></Route>
+                    {/* <Route path="/addMember" element={<AddTeamMember></AddTeamMember>}></Route> */}
                   </Routes>
                 </div>
               </div>
