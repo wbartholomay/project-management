@@ -7,6 +7,8 @@ export default function AddTeamMember(props) {
   const [member, setMember] = useState("");
   const id = props.id;
 
+  console.log("adding team member");
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 

@@ -231,7 +231,7 @@ app.post("/projects/:id/addMember", async (req, res) => {
 
       const result = await collection.updateOne(
         { _id: new ObjectId(id) },
-        { $set: { teamMembers: project.teamMembers } }
+        { $set: { teamMembers: project.teamMembers , teamSize: project.teamSize + 1} }
       );
 
       if (result.modifiedCount > 0) {
