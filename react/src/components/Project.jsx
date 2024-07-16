@@ -47,7 +47,13 @@ const Project = () => {
     fetch(import.meta.env.VITE_TASKS_URL + project._id)
       .then((response) => response.json())
       .then((data) => {
-        setTaskList(data);
+        console.log(data);
+        if(isManager){
+          setTaskList(data);
+        }
+        else{
+          setTaskList(data.filter(task => task.personAssigned === username));
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -105,7 +111,7 @@ const Project = () => {
           />
         </div>
       )}
-      <p>Project Editor</p>
+      {/* <p>Project Editor</p> */}
       {isEditTaskOpen && (
         <div id="add-task-card" className="card">
           <button
@@ -165,6 +171,7 @@ const Project = () => {
         <button onClick={handleAddTaskPopup} className="button-main">
           Add Task
         </button>}
+        <
         <div className="row">
           <div className="col-md-6 bg-light border">
             <h4 className="text-center">To Do</h4>
