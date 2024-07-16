@@ -16,7 +16,7 @@ import Cookies from "js-cookie";
 
 const Project = () => {
   const [taskList, setTaskList] = useState([]);
-  const [, forceUpdate] = useReducer(x => x+1, 0)
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
   const [currentTaskId, setCurrentTaskId] = useState("");
   const [taskListSortedBy, setTaskListSortedBy] = useState("Last Modified");
   const location = useLocation();
@@ -28,6 +28,8 @@ const Project = () => {
 
   const { username } = JSON.parse(Cookies.get("userInfo"));
   const isManager = username === project.manager;
+
+  console.log("isManager: " + isManager);
 
   function handleAddTaskPopup() {
     setIsAddTaskOpen(!isAddTaskOpen);
@@ -191,13 +193,15 @@ const Project = () => {
               <h5>Team Members:</h5>
               {project.teamMembers &&
                 project.teamMembers.map((member) => <p>{member}</p>)}
-              <button
-                type="submit"
-                className="button-main"
-                onClick={handleAddMembersPopup}
-              >
-                Add Member
-              </button>
+              {isManager && (
+                <button
+                  type="submit"
+                  className="button-main"
+                  onClick={handleAddMembersPopup}
+                >
+                  Add Member
+                </button>
+              )}
             </div>
             <div className="col-md-6 bg-light border">
               <h5>Project Details:</h5>
@@ -205,13 +209,15 @@ const Project = () => {
               <p>Budget: ${project.budget}</p>
               <p>Workload: {project.workload}</p>
               <p>Time to Complete: {project.daysToComplete} days</p>
-              <button
-                type="submit"
-                className="button-main"
-                onClick={handleEditProjectPopup}
-              >
-                Edit
-              </button>
+              {isManager && (
+                <button
+                  type="submit"
+                  className="button-main"
+                  onClick={handleEditProjectPopup}
+                >
+                  Edit
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -241,7 +247,9 @@ const Project = () => {
             <option>Due Date</option>
             <option>Person Assigned</option>
           </select>
-          <button type="submit" className="button-secondary">Sort</button>
+          <button type="submit" className="button-secondary">
+            Sort
+          </button>
         </form>
         <div className="row">
           <div className="col-md-6 bg-light border">
