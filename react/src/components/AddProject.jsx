@@ -126,8 +126,8 @@ export default function AddProject() {
           <input
             className="form-field"
             id="time"
-            name="timeToComplete"
-            value={projectData.timeToComplete}
+            name="daysToComplete"
+            value={projectData.daysToComplete}
             onChange={handleChange}
             type="number"
           />

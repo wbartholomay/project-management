@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useReducer } from "react";
 import { useLocation } from "react-router-dom";
 import AddTeamMember from "./AddTeamMember";
 import Task from "./Task";
@@ -16,6 +16,7 @@ import Cookies from "js-cookie";
 
 const Project = () => {
   const [taskList, setTaskList] = useState([]);
+  const [, forceUpdate] = useReducer(x => x+1, 0)
   const [currentTaskId, setCurrentTaskId] = useState("");
   const [taskListSortedBy, setTaskListSortedBy] = useState("Last Modified");
   const location = useLocation();
@@ -90,6 +91,7 @@ const Project = () => {
       default:
         break;
     }
+    forceUpdate();
   }
 
   // console.log(project);
