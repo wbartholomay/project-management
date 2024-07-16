@@ -44,16 +44,20 @@
   transition-duration: 0.3s;
   border: 1px solid transparent;
   letter-spacing: 2px;
-  min-width: 160px;
+  min-width: fit-content;
+  max-width: fit-content;
+  position: absolute;
+  right: 5%;
   text-transform: uppercase;
   white-space: normal;
   font-weight: 700;
   text-align: center;
   padding: 8px 38px;
+  margin-top: 1em;
   margin-bottom: 1em;
   color: #fff;
   background-color: rgb(235, 51, 44);
-  height: 38px;
+  height: 28px;
 }
 
 #add-task-card {
