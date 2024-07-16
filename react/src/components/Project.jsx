@@ -43,13 +43,20 @@ const Project = () => {
   }
 
   function handleSortingField(e) {
+    e.preventDefault();
     setTaskListSortedBy(e.target.value);
-    console.log(e.target.value);
+    //sortList();
+  }
+
+  function handleSortingSubmit(e) {
+    e.preventDefault();
     sortList();
   }
 
+  useEffect(() => sortList, [taskListSortedBy]);
+
   function sortList() {
-    console.log(taskListSortedBy);
+    console.log("state changed:" + taskListSortedBy);
     switch (taskListSortedBy) {
       case "Estimated Duration":
         setTaskList(
@@ -76,6 +83,7 @@ const Project = () => {
             const [bDay, bMonth, bYear] = b.dueDate.split("/");
             const aDate = new Date(aYear, aMonth - 1, aDay);
             const bDate = new Date(bYear, bMonth - 1, bDay);
+            return aDate - bDate;
           })
         );
         break;
@@ -179,9 +187,8 @@ const Project = () => {
           <div className="row">
             <div className="col-md-6 bg-light border">
               <h5>Team Members:</h5>
-              {project.teamMembers.map((member) => (
-                <p>{member}</p>
-              ))}
+              {project.teamMembers &&
+                project.teamMembers.map((member) => <p>{member}</p>)}
               <button
                 type="submit"
                 className="button-main"
@@ -216,21 +223,24 @@ const Project = () => {
           </button>
         )}
         <br />
-        <label className="form-label" id="workload-label" htmlFor="workload">
-          Sort Tasks By:
-        </label>
-        <select
-          className="form-field"
-          id="sorted-by"
-          name="sorted-by"
-          value={taskListSortedBy}
-          onChange={(e) => handleSortingField(e)}
-        >
-          <option>Last Modified</option>
-          <option>Estimated Duration</option>
-          <option>Due Date</option>
-          <option>Person Assigned</option>
-        </select>
+        <form onSubmit={handleSortingSubmit}>
+          <label className="form-label" id="workload-label" htmlFor="workload">
+            Sort Tasks By:
+          </label>
+          <select
+            className="form-field"
+            id="sortedBy"
+            name="sortedBy"
+            value={taskListSortedBy}
+            onChange={handleSortingField}
+          >
+            <option>Last Modified</option>
+            <option>Estimated Duration</option>
+            <option>Due Date</option>
+            <option>Person Assigned</option>
+          </select>
+          <button type="submit">Sort</button>
+        </form>
         <div className="row">
           <div className="col-md-6 bg-light border">
             <h4 className="text-center">To Do</h4>
