@@ -240,7 +240,7 @@ const Project = () => {
             <option>Due Date</option>
             <option>Person Assigned</option>
           </select>
-          <button type="submit">Sort</button>
+          <button type="submit" className="button-secondary">Sort</button>
         </form>
         <div className="row">
           <div className="col-md-6 bg-light border">

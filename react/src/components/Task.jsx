@@ -5,11 +5,11 @@ export default function Task({ task }) {
     <>
     <br />
       <div className="task-name">{task.name}</div>
-      <div>{task.description}</div>
+      <div>Description: {task.description}</div>
       <div>{task.isComplete}</div>
-      <div>{task.personAssigned}</div>
-      <div>{task.dueDate}</div>
-      <div>{task.estimatedDuration}</div>
+      <div>Person Assigned: {task.personAssigned}</div>
+      <div>Due: {task.dueDate}</div>
+      <div>Expected Duration: {task.estimatedDuration} Days</div>
     </>
   );
   }

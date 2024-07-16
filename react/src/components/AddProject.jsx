@@ -11,10 +11,10 @@ export default function AddProject() {
     name: "",
     manager: user.username,
     teamMembers: [user.username],
-    teamSize: 0,
+    teamSize: 1,
     budget: 0,
     workload: 1,
-    daysToComplete: -1,
+    daysToComplete: 0,
   });
 
   const handleChange = (e) => {
