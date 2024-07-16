@@ -80,6 +80,7 @@ export default function SelectProject() {
       ) : (
         projectList.map((proj) => (
           <>
+          <div className="card card-container">
           <Link key={proj._id} to="/Project" state={proj}>
             <div className="card card-container d-flex flex-row justify-content-start">
               <div className="project-name">{proj.name}</div>
@@ -94,7 +95,8 @@ export default function SelectProject() {
               </div>
             </div>
           </Link>
-          <button id="delete-proj-button" onClick={(e) => handleConfirmOpen(proj._id)}>Delete</button>
+            <button id="delete-proj-button" onClick={(e) => handleConfirmOpen(proj._id)}>Delete</button>
+          </div>
           </>
         ))
       )}
