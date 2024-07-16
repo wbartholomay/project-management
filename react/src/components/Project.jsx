@@ -234,7 +234,6 @@ const Project = () => {
             value={taskListSortedBy}
             onChange={handleSortingField}
           >
-            <option>Last Modified</option>
             <option>Estimated Duration</option>
             <option>Due Date</option>
             <option>Person Assigned</option>
