@@ -11,13 +11,13 @@ import {
 import TaskButtons from "./TaskButtons";
 import AddTask from "./AddTask";
 import EditProject from "./EditProject";
-import EditTask from "./EditTask"
-import Cookies from "js-cookie"
-
+import EditTask from "./EditTask";
+import Cookies from "js-cookie";
 
 const Project = () => {
   const [taskList, setTaskList] = useState([]);
   const [currentTaskId, setCurrentTaskId] = useState("");
+  const [taskListSortedBy, setTaskListSortedBy] = useState("Last Modified");
   const location = useLocation();
   const project = location.state || {};
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
@@ -25,7 +25,7 @@ const Project = () => {
   const [isEditProjectOpen, setIsEditProjectOpen] = useState(false);
   const [isEditTaskOpen, setIsEditTaskOpen] = useState(false);
 
-  const {username} = JSON.parse(Cookies.get('userInfo'));
+  const { username } = JSON.parse(Cookies.get("userInfo"));
   const isManager = username === project.manager;
 
   function handleAddTaskPopup() {
@@ -37,9 +37,51 @@ const Project = () => {
   function handleEditProjectPopup() {
     setIsEditProjectOpen(!isEditProjectOpen);
   }
-  function handleEditTaskPopup(taskId = "" ) {
+  function handleEditTaskPopup(taskId = "") {
     setIsEditTaskOpen(!isEditTaskOpen);
     setCurrentTaskId(taskId);
+  }
+
+  function handleSortingField(e) {
+    setTaskListSortedBy(e.target.value);
+    console.log(e.target.value);
+    sortList();
+  }
+
+  function sortList() {
+    console.log(taskListSortedBy);
+    switch (taskListSortedBy) {
+      case "Estimated Duration":
+        setTaskList(
+          taskList.sort((a, b) => a.estimatedDuration - b.estimatedDuration)
+        );
+        break;
+      case "Person Assigned":
+        setTaskList(
+          taskList.sort((a, b) => {
+            if (a.personAssigned < b.personAssigned) {
+              return -1;
+            }
+            if (a.personAssigned > b.personAssigned) {
+              return 1;
+            }
+            return 0;
+          })
+        );
+        break;
+      case "Due Date":
+        setTaskList(
+          taskList.sort((a, b) => {
+            const [aDay, aMonth, aYear] = a.dueDate.split("/");
+            const [bDay, bMonth, bYear] = b.dueDate.split("/");
+            const aDate = new Date(aYear, aMonth - 1, aDay);
+            const bDate = new Date(bYear, bMonth - 1, bDay);
+          })
+        );
+        break;
+      default:
+        break;
+    }
   }
 
   // console.log(project);
@@ -48,11 +90,10 @@ const Project = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        if(isManager){
+        if (isManager) {
           setTaskList(data);
-        }
-        else{
-          setTaskList(data.filter(task => task.personAssigned === username));
+        } else {
+          setTaskList(data.filter((task) => task.personAssigned === username));
         }
       })
       .catch((error) => {
@@ -138,9 +179,9 @@ const Project = () => {
           <div className="row">
             <div className="col-md-6 bg-light border">
               <h5>Team Members:</h5>
-                {project.teamMembers.map((member) => (
-                  <p>{member}</p>
-                ))}
+              {project.teamMembers.map((member) => (
+                <p>{member}</p>
+              ))}
               <button
                 type="submit"
                 className="button-main"
@@ -154,11 +195,13 @@ const Project = () => {
               <p>Budget: ${project.budget}</p>
               <p>Workload: {project.workload}</p>
               <p>Time to Complete: {project.daysToComplete} days</p>
-              <button type="submit"
+              <button
+                type="submit"
                 className="button-main"
-                onClick={handleEditProjectPopup}>
-                  Edit
-                </button>
+                onClick={handleEditProjectPopup}
+              >
+                Edit
+              </button>
             </div>
           </div>
         </div>
@@ -167,11 +210,27 @@ const Project = () => {
       <br />
       <h2>Tasks</h2>
       <div className="container">
-        { isManager &&
-        <button onClick={handleAddTaskPopup} className="button-main">
-          Add Task
-        </button>}
-        <
+        {isManager && (
+          <button onClick={handleAddTaskPopup} className="button-main">
+            Add Task
+          </button>
+        )}
+        <br />
+        <label className="form-label" id="workload-label" htmlFor="workload">
+          Sort Tasks By:
+        </label>
+        <select
+          className="form-field"
+          id="sorted-by"
+          name="sorted-by"
+          value={taskListSortedBy}
+          onChange={(e) => handleSortingField(e)}
+        >
+          <option>Last Modified</option>
+          <option>Estimated Duration</option>
+          <option>Due Date</option>
+          <option>Person Assigned</option>
+        </select>
         <div className="row">
           <div className="col-md-6 bg-light border">
             <h4 className="text-center">To Do</h4>
@@ -199,7 +258,7 @@ const Project = () => {
               .filter((task) => task.isComplete)
               .map((task) => (
                 <div key={task._id} className="card task-card">
-                    <TaskButtons
+                  <TaskButtons
                     task={task}
                     taskList={taskList}
                     setTaskList={setTaskList}
