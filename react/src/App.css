@@ -33,7 +33,7 @@
   transform: translate(-50%, -50%);
 }
 
-#delete-proj-button {
+.delete-proj-button {
   display: inline-block;
   outline: none;
   cursor: pointer;
@@ -44,16 +44,42 @@
   transition-duration: 0.3s;
   border: 1px solid transparent;
   letter-spacing: 2px;
-  min-width: 160px;
+  min-width: fit-content;
+  max-width: fit-content;
+  position: absolute;
+  right: 5%;
   text-transform: uppercase;
   white-space: normal;
   font-weight: 700;
   text-align: center;
   padding: 8px 38px;
+  margin-top: 1em;
   margin-bottom: 1em;
   color: #fff;
+  background-color: rgb(116, 6, 3);
+  height: 28px;
+  z-index: 9999;
+}
+
+.delete-proj-button:hover {
+  transform: scale(1.04);
   background-color: rgb(235, 51, 44);
-  height: 38px;
+}
+#confirm-delete-button {
+  position: relative;
+  margin:auto;
+  right: auto;
+  left: auto;
+}
+
+#confirm-delete-card {
+  position: fixed;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%,50%);
+  z-index: 9999;
+  width: 30vw;
+  height: 30vh;
 }
 
 #add-task-card {
@@ -73,6 +99,7 @@
   font-weight: 300;
   height: fit-content;
 }
+
 #project-name-card h1 {
   font-size: larger;
 }

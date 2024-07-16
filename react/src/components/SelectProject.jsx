@@ -48,8 +48,10 @@ export default function SelectProject() {
   }
 
   useEffect(() => {
-    fetch(import.meta.env.VITE_PROJECTS_URL + username)
-      .then((response) => response.json())
+    fetch("http://127.0.0.1:3000/projects/" + username)
+      .then((response) => {
+        console.log(response);
+        return response.json()})
       .then((data) => {
         setProjectList(data);
         console.log(data);
@@ -61,15 +63,15 @@ export default function SelectProject() {
   return (
     <>
     {isConfirmOpen && (
-        <div id="add-task-card" className="popup-card">
-          <button
+        <div id="confirm-delete-card" className="card">
+          <button 
             onClick={handleConfirmOpen}
             className="btn-primary close-popup"
           >
             X
           </button>
           <h4>CONFIRM DELETION</h4>
-          <button onClick={(e) => handleDelete(e)}>CONFIRM</button>
+          <button className="delete-proj-button" id="confirm-delete-button" onClick={(e) => handleDelete(e)}>CONFIRM</button>
         </div>
       )}
       <div>Your Projects</div>
@@ -78,7 +80,8 @@ export default function SelectProject() {
       ) : (
         projectList.map((proj) => (
           <>
-          <Link key={proj._id} to="/Project" state={proj}>
+          <div key={proj._id} className="card card-container">
+          <Link  to="/Project" state={proj}>
             <div className="card card-container d-flex flex-row justify-content-start">
               <div className="project-name">{proj.name}</div>
               <div className="project-attributes">
@@ -92,7 +95,8 @@ export default function SelectProject() {
               </div>
             </div>
           </Link>
-          <button id="delete-proj-button" onClick={(e) => handleConfirmOpen(proj._id)}>Delete</button>
+            <button className="delete-proj-button" onClick={(e) => handleConfirmOpen(proj._id)}>Delete</button>
+          </div>
           </>
         ))
       )}
