@@ -84,9 +84,9 @@ function App() {
                       Logout
                     </Link>
                   </li>
-                  <div className="nav-item">
-                    <p id="username-label" className="nav-link">{username !== "" ? "Welcome, " + username : ""}</p>
-                  </div>
+                  <li className="nav-item">
+                    <Link id="username-label" className="nav-link">{username !== "" ? "Welcome, " + username : ""}</Link>
+                  </li>
                 </ul>
               </div>
               <div></div>

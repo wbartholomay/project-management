@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useAuth } from "../hooks/AuthContext";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, Navigate } from "react-router-dom";
 import Cookies from 'js-cookie'
 
 export default function AddProject() {
   // const { user } = useAuth();
   const user = JSON.parse(Cookies.get('userInfo'));
-  
+  const navigate = useNavigate()
   const [projectData, setProjectData] = useState({
     name: "",
     manager: user.username,
@@ -51,6 +51,7 @@ export default function AddProject() {
         workload: 1,
         daysToComplete: -1,
       });
+      navigate("/SelectProject") 
     } catch (err) {
       console.error(err);
     }

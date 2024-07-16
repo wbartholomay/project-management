@@ -78,8 +78,8 @@ export default function SelectProject() {
       ) : (
         projectList.map((proj) => (
           <>
-          <div className="card card-container">
-          <Link key={proj._id} to="/Project" state={proj}>
+          <div key={proj._id} className="card card-container">
+          <Link  to="/Project" state={proj}>
             <div className="card card-container d-flex flex-row justify-content-start">
               <div className="project-name">{proj.name}</div>
               <div className="project-attributes">

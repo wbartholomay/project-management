@@ -56,8 +56,14 @@
   margin-top: 1em;
   margin-bottom: 1em;
   color: #fff;
-  background-color: rgb(235, 51, 44);
+  background-color: rgb(116, 6, 3);
   height: 28px;
+  z-index: 9999;
+}
+
+#delete-proj-button:hover {
+  transform: scale(1.04);
+  background-color: rgb(235, 51, 44);
 }
 
 #add-task-card {
