@@ -2,6 +2,7 @@ import random
 import pymongo
 
 def generate_task(description: str, complete: bool, user_assigned: str, due_date: str, days_to_complete: int):
+    """return project in JSON format"""
     return{
         "description" : description,
         "complete" : complete,
@@ -11,6 +12,7 @@ def generate_task(description: str, complete: bool, user_assigned: str, due_date
     }
 
 def generate_project(name, team_members: list[str], team_size: int, budget: int, workload: int, days_to_complete: int, task_ids: list[str] = []):
+    """return project in JSON format"""
     return{
         "name" : name,
         "teamMembers" : team_members,
@@ -22,6 +24,7 @@ def generate_project(name, team_members: list[str], team_size: int, budget: int,
     }
 
 def generate_one_thousand_projects():
+    """Generate 1000 random projects and return as list"""
     projects = []
     for _ in range(1000):
         name = ""
